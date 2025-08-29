@@ -1,31 +1,22 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DondeComemos.Models;
+using DondeComemos.Services;
 
-namespace DondeComemos.Controllers;
-
-public class HomeController : Controller
+namespace DondeComemos.Controllers
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public class HomeController : Controller
     {
-        _logger = logger;
-    }
+        private readonly IHomeService _homeService;
 
-    public IActionResult Index()
-    {
-        return View();
-    }
+        public HomeController(IHomeService homeService)
+        {
+            _homeService = homeService;
+        }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        public IActionResult Index()
+        {
+            var model = _homeService.GetHomeData();
+            return View(model);
+        }
     }
 }
