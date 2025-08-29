@@ -290,3 +290,4 @@ D:\Usmp6\Programacion\DondeComemos\obj\Debug\net9.0\refint\DondeComemos.dll
 D:\Usmp6\Programacion\DondeComemos\obj\Debug\net9.0\DondeComemos.pdb
 D:\Usmp6\Programacion\DondeComemos\obj\Debug\net9.0\DondeComemos.genruntimeconfig.cache
 D:\Usmp6\Programacion\DondeComemos\obj\Debug\net9.0\ref\DondeComemos.dll
+D:\Usmp6\Programacion\DondeComemos\obj\Debug\net9.0\DondeComemos.sourcelink.json
