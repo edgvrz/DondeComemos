@@ -29,3 +29,32 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+.navbar .nav-link {
+    color: #111;
+    font-weight: 500;
+    border-radius: .75rem;
+    padding: .5rem .85rem;
+}
+.navbar .nav-link.active {
+    background: #000;
+    color: #fff !important;
+}
+
+.hero {
+    position: relative;
+    min-height: 520px;
+    background: url("/img/pears.jpeg") center/cover no-repeat;
+}
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.35);
+}
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 120px 0;
+}
+
+footer { background: #fff; }
