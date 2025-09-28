@@ -1,0 +1,26 @@
+@model DondeComemos.Models.Restaurante
+
+@{
+    ViewData["Title"] = "Detalles del Restaurante";
+}
+
+<div class="container py-4">
+    <h2 class="fw-bold">📖 Detalles</h2>
+
+    <dl class="row">
+        <dt class="col-sm-2">Nombre</dt>
+        <dd class="col-sm-10">@Model.Nombre</dd>
+
+        <dt class="col-sm-2">Dirección</dt>
+        <dd class="col-sm-10">@Model.Direccion</dd>
+
+        <dt class="col-sm-2">Descripción</dt>
+        <dd class="col-sm-10">@Model.Descripcion</dd>
+
+        <dt class="col-sm-2">Rating</dt>
+        <dd class="col-sm-10">⭐ @Model.Rating</dd>
+    </dl>
+
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+</div>
