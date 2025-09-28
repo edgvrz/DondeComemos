@@ -1,0 +1,34 @@
+@model DondeComemos.Models.Contacto
+
+@{
+    ViewBag.Title= "Contact";
+}
+<h1>Contacto</h1>
+
+<form method="post" asp-action="Registrar">
+    <div class="form-group">
+    <label asp-for="Nombre" class="control-label"></label>
+    <input asp-for="Nombre" class="form-control" />                                                             
+    <span asp-validation-for="Nombre" class="text-danger"></span>   
+    </div>
+    <div class="form-group mt-2">
+    <label asp-for="Email" class="control-label"></label>
+    <input asp-for="Email" class="form-control" />
+    <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-2">
+    <label asp-for="Mensaje" class="control-label"></label>
+    <textarea asp-for="Mensaje" class="form-control"></textarea>
+    <span asp-validation-for="Mensaje" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-2">
+    <label asp-for="Satisfaccion" class="control-label"></label>
+    <input asp-for="Satisfaccion" class="form-control" />
+    <span asp-validation-for="Satisfaccion" class="text-danger"></span>
+    <button type="submit" class="btn btn-primary mt-2">Enviar</button>
+</form>
+<h1>@ViewData["Mensaje"]</h1>
+
+@section  Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

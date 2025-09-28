@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
     var controller = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
     var action = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
     string Active(string c, string? a = null)
@@ -31,16 +34,27 @@
 
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav mx-auto gap-2">
-                    <li class="nav-item">
-                        <a class="nav-link @Active("Home","Index")" asp-controller="Home" asp-action="Index">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @Active("Restaurants","Search")" asp-controller="Restaurants" asp-action="Search">Búsqueda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @Active("Suggestions","Index")" asp-controller="Suggestions" asp-action="Index">Sugerencias</a>
-                    </li>
-                </ul>
+    <li class="nav-item">
+        <a class="nav-link @Active("Home","Index")" asp-controller="Home" asp-action="Index">Inicio</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @Active("Restaurantes","Search")" asp-controller="Restaurantes" asp-action="Search">Búsqueda</a>
+    </li>
+
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+    {
+        <li class="nav-item">
+            <a class="nav-link @Active("Restaurantes","Index")" asp-controller="Restaurantes" asp-action="Index">Administrar Restaurantes</a>
+        </li>
+    }
+
+    <li class="nav-item">
+        <a class="nav-link @Active("Contact","Index")" asp-controller="Contact" asp-action="Index">Contacto</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @Active("Suggestions","Index")" asp-controller="Suggestions" asp-action="Index">Sugerencias</a>
+    </li>
+</ul>
 
                 <partial name="_LoginPartial" />
             </div>
@@ -55,7 +69,7 @@
 
     <footer class="border-top py-4 mt-auto">
         <div class="container small text-muted">
-            © @DateTime.Now.Year – DondeComemos
+            © @DateTime.Now.Year DondeComemos
         </div>
     </footer>
 
