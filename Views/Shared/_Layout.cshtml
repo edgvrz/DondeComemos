@@ -1,0 +1,83 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    var action = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+    string Active(string c, string? a = null)
+        => (controller.Equals(c, StringComparison.OrdinalIgnoreCase) &&
+            (a is null || action.Equals(a, StringComparison.OrdinalIgnoreCase)))
+           ? "active" : "";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DondeComemos</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DondeComemos.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="shadow-sm bg-white">
+        <nav class="navbar navbar-expand-lg container">
+            <a class="navbar-brand fw-semibold text-body" asp-controller="Home" asp-action="Index">
+                dondecomemos.aqp
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav mx-auto gap-2">
+    <li class="nav-item">
+        <a class="nav-link @Active("Home","Index")" asp-controller="Home" asp-action="Index">Inicio</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @Active("Restaurantes","Search")" asp-controller="Restaurantes" asp-action="Search">Búsqueda</a>
+    </li>
+
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+    {
+        <li class="nav-item">
+            <a class="nav-link @Active("Restaurantes","Index")" asp-controller="Restaurantes" asp-action="Index">Administrar Restaurantes</a>
+        </li>
+    }
+
+    <li class="nav-item">
+        <a class="nav-link @Active("Contact","Index")" asp-controller="Contact" asp-action="Index">Contacto</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @Active("Suggestions","Index")" asp-controller="Suggestions" asp-action="Index">Sugerencias</a>
+    </li>
+</ul>
+
+                <partial name="_LoginPartial" />
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid p-0">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top py-4 mt-auto">
+        <div class="container small text-muted">
+            © @DateTime.Now.Year DondeComemos
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

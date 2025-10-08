@@ -1,0 +1,88 @@
+@model DondeComemos.Models.Restaurante
+
+@{
+    ViewData["Title"] = "Eliminar Restaurante";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h2 class="mb-0">⚠️ Eliminar Restaurante</h2>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <h5 class="alert-heading">
+                            <i class="bi bi-exclamation-triangle-fill"></i> 
+                            ¿Estás seguro de que deseas eliminar este restaurante?
+                        </h5>
+                        <p class="mb-0">Esta acción no se puede deshacer. Se eliminarán también todos los productos asociados.</p>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+                                {
+                                    <img src="@Model.ImagenUrl" class="img-fluid rounded-start h-100" 
+                                         style="object-fit: cover;" alt="@Model.Nombre">
+                                }
+                                else
+                                {
+                                    <div class="bg-light h-100 d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-image display-1 text-muted"></i>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h4 class="card-title">@Model.Nombre</h4>
+                                    <p class="card-text">@Model.Descripcion</p>
+                                    
+                                    <dl class="row mb-0">
+                                        <dt class="col-sm-4">Dirección:</dt>
+                                        <dd class="col-sm-8">@Model.Direccion</dd>
+
+                                        <dt class="col-sm-4">Calificación:</dt>
+                                        <dd class="col-sm-8">⭐ @Model.Rating / 5</dd>
+
+                                        @if (!string.IsNullOrEmpty(Model.TipoCocina))
+                                        {
+                                            <dt class="col-sm-4">Tipo de Cocina:</dt>
+                                            <dd class="col-sm-8">@Model.TipoCocina</dd>
+                                        }
+
+                                        @if (!string.IsNullOrEmpty(Model.Telefono))
+                                        {
+                                            <dt class="col-sm-4">Teléfono:</dt>
+                                            <dd class="col-sm-8">@Model.Telefono</dd>
+                                        }
+
+                                        @if (!string.IsNullOrEmpty(Model.RangoPrecios))
+                                        {
+                                            <dt class="col-sm-4">Rango de Precios:</dt>
+                                            <dd class="col-sm-8">@Model.RangoPrecios</dd>
+                                        }
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Confirmar Eliminación
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

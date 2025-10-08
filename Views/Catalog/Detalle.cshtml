@@ -1,0 +1,17 @@
+@model DondeComemos.Models.Restaurante
+
+@{
+    ViewData["Title"] = Model.Nombre;
+}
+
+<div class="card shadow-sm">
+    <img src="@Model.ImagenUrl" class="card-img-top" alt="@Model.Nombre" />
+    <div class="card-body">
+        <h2>@Model.Nombre</h2>
+        <p>@Model.Descripcion</p>
+        <p><strong>Dirección:</strong> @Model.Direccion</p>
+        <p>⭐ @Model.Rating / 5</p>
+    </div>
+</div>
+
+<a asp-controller="Catalogo" asp-action="Index" class="btn btn-secondary mt-3">Volver al catálogo</a>

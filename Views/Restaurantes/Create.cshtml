@@ -1,0 +1,116 @@
+@model DondeComemos.Models.Restaurante
+
+@{
+    ViewData["Title"] = "Nuevo Restaurante";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0"><i class="bi bi-plus-circle"></i> Nuevo Restaurante</h2>
+                </div>
+                <div class="card-body">
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            @TempData["Success"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Nombre" class="form-label fw-bold"></label>
+                            <input asp-for="Nombre" class="form-control" placeholder="Ej: La Trattoria" />
+                            <span asp-validation-for="Nombre" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Direccion" class="form-label fw-bold"></label>
+                            <input asp-for="Direccion" class="form-control" placeholder="Ej: Av. Dolores 123" />
+                            <span asp-validation-for="Direccion" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Descripcion" class="form-label fw-bold"></label>
+                            <textarea asp-for="Descripcion" class="form-control" rows="4" 
+                                      placeholder="Describe el restaurante, su especialidad, ambiente..."></textarea>
+                            <span asp-validation-for="Descripcion" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Rating" class="form-label fw-bold"></label>
+                            <input asp-for="Rating" class="form-control" type="number" min="0" max="5" />
+                            <span asp-validation-for="Rating" class="text-danger small"></span>
+                            <small class="text-muted">Calificación de 0 a 5 estrellas</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Imagen del Restaurante</label>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label asp-for="ImagenArchivo" class="form-label">
+                                            <i class="bi bi-upload"></i> Subir desde el ordenador
+                                        </label>
+                                        <input asp-for="ImagenArchivo" type="file" class="form-control" 
+                                               accept="image/*" id="imagenArchivo" onchange="previewImage(event)" />
+                                        <span asp-validation-for="ImagenArchivo" class="text-danger small"></span>
+                                        <small class="text-muted d-block mt-1">
+                                            Formatos: JPG, PNG, GIF, WEBP (Máx. 5MB)
+                                        </small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label asp-for="ImagenUrl" class="form-label">
+                                            <i class="bi bi-link-45deg"></i> O pega una URL de imagen
+                                        </label>
+                                        <input asp-for="ImagenUrl" class="form-control" 
+                                               placeholder="https://ejemplo.com/imagen.jpg" />
+                                        <span asp-validation-for="ImagenUrl" class="text-danger small"></span>
+                                    </div>
+
+                                    <div id="imagePreview" class="text-center" style="display:none;">
+                                        <p class="text-muted small">Vista previa:</p>
+                                        <img id="preview" src="" class="img-fluid rounded" 
+                                             style="max-height: 200px; object-fit: cover;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Guardar Restaurante
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview').src = e.target.result;
+                    document.getElementById('imagePreview').style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+}
