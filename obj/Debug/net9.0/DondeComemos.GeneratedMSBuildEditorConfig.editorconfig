@@ -120,6 +120,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudGVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Usmp6/Programacion/DondeComemos/Views/Restaurantes/Explorar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudGVzXEV4cGxvcmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Usmp6/Programacion/DondeComemos/Views/Restaurantes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudGVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -142,6 +146,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Usmp6/Programacion/DondeComemos/Views/Suggestions/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VnZ2VzdGlvbnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Usmp6/Programacion/DondeComemos/Views/Watchlist/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2F0Y2hsaXN0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Usmp6/Programacion/DondeComemos/Views/_ViewImports.cshtml]

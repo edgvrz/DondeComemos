@@ -1,28 +1,56 @@
 @model IEnumerable<DondeComemos.Models.Restaurante>
-
 @{
-    ViewData["Title"] = "Búsqueda";
+    ViewData["Title"] = "Buscar Restaurantes";
+    var favoritos = ViewBag.FavoritosIds as List<int> ?? new List<int>();
 }
 
-<div class="container py-5">
-    <h2 class="fw-semibold">🍴 Restaurantes con mejor puntuación</h2>
-    <p class="text-muted">Explora y encuentra el mejor lugar para comer en Arequipa.</p>
+<h2 class="mt-4 mb-3">Restaurantes Encontrados</h2>
 
-    <div class="row">
-        @foreach (var r in Model)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-sm h-100">
-                    <img src="@r.ImagenUrl" class="card-img-top" alt="@r.Nombre"
-                         style="height:200px; object-fit:cover;" />
-                    <div class="card-body">
-                        <h5 class="card-title">@r.Nombre</h5>
-                        <p class="card-text">@r.Direccion</p>
-                        <p class="text-muted">@r.Descripcion</p>
-                        <span class="fw-bold">⭐ @r.Rating / 5</span>
-                    </div>
-                </div>
+<form asp-action="Search" method="get" class="mb-4">
+    <input type="text" name="q" class="form-control" placeholder="Buscar restaurante..." value="@Context.Request.Query["q"]" />
+</form>
+
+<div class="row">
+@foreach (var r in Model)
+{
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+            <img src="@r.ImagenUrl" class="card-img-top" alt="@r.Nombre" />
+            <div class="card-body">
+                <h5 class="card-title">@r.Nombre</h5>
+                <p class="card-text text-muted">@r.Direccion</p>
+                <p>@r.Descripcion</p>
+                <p><strong>⭐ @r.Rating</strong></p>
+
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    if (favoritos.Contains(r.Id))
+                    {
+                        <form asp-controller="Watchlist" asp-action="Remove" method="post">
+                            <input type="hidden" name="restauranteId" value="@r.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="bi bi-heartbreak"></i> Quitar favorito
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-controller="Watchlist" asp-action="Add" method="post">
+                            <input type="hidden" name="restauranteId" value="@r.Id" />
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-heart"></i> Agregar a favoritos
+                            </button>
+                        </form>
+                    }
+                }
+                else
+                {
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-box-arrow-in-right"></i> Inicia sesión para guardar
+                    </a>
+                }
             </div>
-        }
+        </div>
     </div>
+}
 </div>

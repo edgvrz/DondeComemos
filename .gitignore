@@ -1,3 +1,12 @@
 /bin
 /obj
 
+# Base de datos local
+*.db
+*.db-shm
+*.db-wal
+
+# Archivos temporales de usuario
+*.user
+*.cache
+*.log
