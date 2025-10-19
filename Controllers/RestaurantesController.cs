@@ -3,17 +3,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using DondeComemos.Data;
 using DondeComemos.Models;
+using Microsoft.AspNetCore.Identity; 
 
 namespace DondeComemos.Controllers
 {
     public class RestaurantesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public RestaurantesController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+
+
+        public RestaurantesController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+{
+    _context = context;
+    _userManager = userManager;
+}
+
 
         // --- Vistas públicas (Clientes) ---
         [AllowAnonymous]
@@ -27,20 +33,36 @@ namespace DondeComemos.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Search(string? q)
-        {
-            var query = _context.Restaurantes.AsQueryable();
+       public async Task<IActionResult> Search(string? q)
+{
+    var query = _context.Restaurantes.AsQueryable();
 
-            if (!string.IsNullOrEmpty(q))
-            {
-                query = query.Where(r => r.Nombre.Contains(q) ||
-                                         r.Direccion.Contains(q) ||
-                                         r.Descripcion.Contains(q));
-            }
+    if (!string.IsNullOrEmpty(q))
+    {
+        query = query.Where(r => r.Nombre.Contains(q) ||
+                                 r.Direccion.Contains(q) ||
+                                 r.Descripcion.Contains(q));
+    }
 
-            var restaurantes = await query.OrderByDescending(r => r.Rating).ToListAsync();
+    var restaurantes = await query.OrderByDescending(r => r.Rating).ToListAsync();
 
-            return View(restaurantes);
+    // 🧩 Si el usuario está logueado, obtener sus favoritos
+    List<int> favoritosIds = new();
+
+    if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user != null) // ✅ Protección extra
+        favoritosIds = await _context.Watchlists
+            .Where(w => w.UserId == user.Id)
+            .Select(w => w.RestauranteId)
+            .ToListAsync();
+    }
+
+    // Pasar ambos datos a la vista
+    ViewBag.FavoritosIds = favoritosIds;
+
+    return View(restaurantes);
         }
 
         // --- CRUD (solo Admin) ---
@@ -95,28 +117,35 @@ namespace DondeComemos.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var restaurante = await _context.Restaurantes.FindAsync(id);
-            if (restaurante == null)
-            {
-                return NotFound();
-            }
-            return View(restaurante);
+        public async Task<IActionResult> Delete(int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
+
+    var restaurante = await _context.Restaurantes
+        .FirstOrDefaultAsync(m => m.Id == id);
+    if (restaurante == null)
+    {
+        return NotFound();
+    }
+
+    return View(restaurante);
         }
 
         [HttpPost, ActionName("Delete")]
-        [Authorize(Roles = "Admin")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var restaurante = await _context.Restaurantes.FindAsync(id);
-            if (restaurante != null)
-            {
-                _context.Restaurantes.Remove(restaurante);
-                await _context.SaveChangesAsync();
-            }
-            return RedirectToAction(nameof(Index));
-        }
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> DeleteConfirmed(int id)
+{
+    var restaurante = await _context.Restaurantes.FindAsync(id);
+    if (restaurante != null)
+    {
+        _context.Restaurantes.Remove(restaurante);
+        await _context.SaveChangesAsync();
+    }
+
+    return RedirectToAction(nameof(Index));
+}
     }
 }

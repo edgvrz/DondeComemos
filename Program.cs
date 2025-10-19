@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using DondeComemos.Data;
 using DondeComemos.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,11 +22,18 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.Sign
 
 builder.Services.AddControllersWithViews();
 
-// Agrega Razor Pages aquí
-builder.Services.AddRazorPages();  // <-- Agregado
+// ✅ Agrega Razor Pages
+builder.Services.AddRazorPages();
 
-// CORRECTO: Registrar interfaz y clase
+// ✅ Servicios personalizados
 builder.Services.AddScoped<IHomeService, HomeService>();
+
+// ✅ Servicio de correo falso (simulado)
+builder.Services.AddSingleton<IEmailSender, FakeEmailSender>();
+
+
+
+
 
 var app = builder.Build();
 
@@ -44,7 +53,7 @@ using (var scope = app.Services.CreateScope())
         }
     }
 
-    // Opcional: Crear un Admin por defecto si no existe
+    // ✅ Crear un Admin por defecto si no existe
     string adminEmail = "admin@dondecomemos.com";
     string adminPassword = "Admin123!"; // cámbialo luego
 
@@ -71,17 +80,18 @@ else
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles(); // <-- Agrega esta línea para servir archivos estáticos
+app.UseStaticFiles();
 app.UseRouting();
-app.UseAuthentication(); //  primero autenticación
-app.UseAuthorization();  //  luego autorización
 
-// Elimina MapStaticAssets y WithStaticAssets, no existen en ASP.NET Core por defecto
+app.UseAuthentication(); 
+app.UseAuthorization();  
+
+// ✅ Rutas por defecto
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// Mapea Razor Pages
-app.MapRazorPages();  // <-- Asegúrate de que esto esté aquí
+// ✅ Razor Pages
+app.MapRazorPages();
 
 app.Run();
