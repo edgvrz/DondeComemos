@@ -6,7 +6,7 @@ Opcional del NUGET
 dotnet tool install --global dotnet-aspnet-codegenerator --version 9.0.0
 
 ## EF migrations
-dotnet ef migrations add AddRestaurante --context dondecomemos.Data.ApplicationDbContext -o
+dotnet ef migrations add PrimeraMigra --context dondecomemos.Data.ApplicationDbContext -o
 "D:\Usmp6\Programacion\DondeComemos\Data\Migrations"
 
 No tener Ef
@@ -14,6 +14,3 @@ dotnet tool install --global dotnet-ef
 
 actualizar 
 dotnet ef database update
-
-dotnet ef migrations add AddContacto --context dondecomemos.Data.ApplicationDbContext -o
-"D:\Usmp6\Programacion\DondeComemos\Data\Migrations"

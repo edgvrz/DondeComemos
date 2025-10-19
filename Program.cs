@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using DondeComemos.Data;
 using DondeComemos.Services;
-using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,9 +25,6 @@ builder.Services.AddRazorPages();  // <-- Agregado
 
 // CORRECTO: Registrar interfaz y clase
 builder.Services.AddScoped<IHomeService, HomeService>();
-builder.Services.AddSingleton<IEmailSender, FakeEmailSender>();
-
-
 
 var app = builder.Build();
 
