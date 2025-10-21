@@ -1,0 +1,17 @@
+@model IEnumerable<DondeComemos.Models.Testimonial>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row g-4">
+            @foreach(var t in Model)
+            {
+                <div class="col-md-4 text-center">
+                    <p>"@t.Texto"</p>
+                    <img src="@t.ImagenUrl" class="rounded-circle mb-2" width="60" />
+                    <p class="small text-muted mb-0">@t.Usuario</p>
+                    <p class="small text-muted">@t.Rol</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,281 @@
+@model DondeComemos.Models.Producto
+
+@{
+    ViewData["Title"] = "Agregar Producto";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-gradient text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <h3 class="mb-0"><i class="bi bi-plus-circle"></i> Agregar Producto al Menú</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="RestauranteId" value="@ViewBag.RestauranteId" />
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <!-- Información Básica -->
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="fw-bold text-primary mb-3">
+                                    <i class="bi bi-info-circle"></i> Información Básica
+                                </h5>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label asp-for="Nombre" class="form-label fw-bold"></label>
+                                    <input asp-for="Nombre" class="form-control" placeholder="Ej: Pizza Margherita" />
+                                    <span asp-validation-for="Nombre" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label asp-for="Precio" class="form-label fw-bold"></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">S/</span>
+                                        <input asp-for="Precio" class="form-control" type="number" step="0.01" min="0" placeholder="0.00" />
+                                    </div>
+                                    <span asp-validation-for="Precio" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Descripcion" class="form-label fw-bold"></label>
+                            <textarea asp-for="Descripcion" class="form-control" rows="3" 
+                                      placeholder="Describe el plato, su preparación, etc..."></textarea>
+                            <span asp-validation-for="Descripcion" class="text-danger small"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Categoria" class="form-label fw-bold"></label>
+                                    <select asp-for="Categoria" class="form-select">
+                                        <option value="Entradas">🥗 Entradas</option>
+                                        <option value="Plato Principal" selected>🍽️ Plato Principal</option>
+                                        <option value="Bebidas">🥤 Bebidas</option>
+                                        <option value="Postres">🍰 Postres</option>
+                                        <option value="Ensaladas">🥙 Ensaladas</option>
+                                        <option value="Sopas">🍜 Sopas</option>
+                                        <option value="Extras">➕ Extras</option>
+                                        <option value="Desayunos">🍳 Desayunos</option>
+                                        <option value="Sandwiches">🥪 Sandwiches</option>
+                                    </select>
+                                    <span asp-validation-for="Categoria" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Orden" class="form-label fw-bold"></label>
+                                    <input asp-for="Orden" class="form-control" type="number" min="0" />
+                                    <small class="text-muted">Orden de aparición en el menú</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Detalles del Producto -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h5 class="fw-bold text-primary mb-3">
+                                    <i class="bi bi-clipboard-check"></i> Detalles del Producto
+                                </h5>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Ingredientes" class="form-label fw-bold"></label>
+                            <textarea asp-for="Ingredientes" class="form-control" rows="2" 
+                                      placeholder="Ej: Tomate, mozzarella, albahaca, aceite de oliva..."></textarea>
+                            <small class="text-muted">Lista de ingredientes principales</small>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Alergenos" class="form-label fw-bold"></label>
+                                    <input asp-for="Alergenos" class="form-control" 
+                                           placeholder="Ej: Gluten, lácteos, frutos secos" />
+                                    <small class="text-muted">Alérgenos presentes</small>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label asp-for="Calorias" class="form-label fw-bold"></label>
+                                    <input asp-for="Calorias" class="form-control" type="number" min="0" 
+                                           placeholder="0" />
+                                    <small class="text-muted">Calorías aproximadas</small>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label asp-for="TiempoPreparacion" class="form-label fw-bold"></label>
+                                    <div class="input-group">
+                                        <input asp-for="TiempoPreparacion" class="form-control" type="number" min="0" 
+                                               placeholder="0" />
+                                        <span class="input-group-text">min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Características -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h5 class="fw-bold text-primary mb-3">
+                                    <i class="bi bi-tags"></i> Características
+                                </h5>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-check form-switch mb-3">
+                                    <input asp-for="Disponible" class="form-check-input" type="checkbox" checked />
+                                    <label asp-for="Disponible" class="form-check-label fw-bold">
+                                        Disponible
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-check form-switch mb-3">
+                                    <input asp-for="EsVegetariano" class="form-check-input" type="checkbox" />
+                                    <label asp-for="EsVegetariano" class="form-check-label">
+                                        🌱 Vegetariano
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-check form-switch mb-3">
+                                    <input asp-for="EsVegano" class="form-check-input" type="checkbox" />
+                                    <label asp-for="EsVegano" class="form-check-label">
+                                        🌿 Vegano
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-check form-switch mb-3">
+                                    <input asp-for="SinGluten" class="form-check-input" type="checkbox" />
+                                    <label asp-for="SinGluten" class="form-check-label">
+                                        🌾 Sin Gluten
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-check form-switch mb-3">
+                                    <input asp-for="Picante" class="form-check-input" type="checkbox" />
+                                    <label asp-for="Picante" class="form-check-label">
+                                        🌶️ Picante
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-check form-switch mb-3">
+                                    <input asp-for="RecomendacionChef" class="form-check-input" type="checkbox" />
+                                    <label asp-for="RecomendacionChef" class="form-check-label">
+                                        ⭐ Recomendación del Chef
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Imagen -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h5 class="fw-bold text-primary mb-3">
+                                    <i class="bi bi-image"></i> Imagen del Producto
+                                </h5>
+                            </div>
+                        </div>
+
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label asp-for="ImagenArchivo" class="form-label fw-bold">
+                                        <i class="bi bi-upload"></i> Opción 1: Subir desde el ordenador
+                                    </label>
+                                    <input asp-for="ImagenArchivo" type="file" class="form-control" 
+                                           accept="image/*" id="imagenArchivo" onchange="previewImage(event)" />
+                                    <span asp-validation-for="ImagenArchivo" class="text-danger small"></span>
+                                    <small class="text-muted d-block mt-1">
+                                        Formatos: JPG, PNG, GIF (Máx. 5MB)
+                                    </small>
+                                </div>
+
+                                <div class="text-center my-2">
+                                    <strong>- O -</strong>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="ImagenUrlExterna" class="form-label fw-bold">
+                                        <i class="bi bi-link-45deg"></i> Opción 2: URL de imagen externa
+                                    </label>
+                                    <input asp-for="ImagenUrlExterna" class="form-control" 
+                                           placeholder="https://ejemplo.com/imagen.jpg" 
+                                           onchange="previewExternalImage()" />
+                                    <small class="text-muted d-block mt-1">
+                                        Pega la URL de una imagen desde Internet
+                                    </small>
+                                </div>
+
+                                <div id="imagePreview" class="text-center mt-3" style="display:none;">
+                                    <p class="text-muted small">Vista previa:</p>
+                                    <img id="preview" src="" class="img-fluid rounded shadow" 
+                                         style="max-height: 300px; object-fit: cover;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a asp-action="Index" asp-route-restauranteId="@ViewBag.RestauranteId" class="btn btn-secondary btn-lg">
+                                <i class="bi bi-x-circle"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="bi bi-check-circle"></i> Guardar Producto
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview').src = e.target.result;
+                    document.getElementById('imagePreview').style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function previewExternalImage() {
+            const url = document.querySelector('[name="ImagenUrlExterna"]').value;
+            if (url) {
+                document.getElementById('preview').src = url;
+                document.getElementById('imagePreview').style.display = 'block';
+            }
+        }
+    </script>
+}

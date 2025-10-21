@@ -1,0 +1,128 @@
+<style>
+    .rating-container {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .star-rating-input {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        gap: 5px;
+        font-size: 2.5rem;
+    }
+    
+    .star-rating-input input[type="radio"] {
+        display: none;
+    }
+    
+    .star-rating-input label {
+        cursor: pointer;
+        color: #ddd;
+        transition: color 0.2s;
+    }
+    
+    .star-rating-input input[type="radio"]:checked ~ label,
+    .star-rating-input label:hover,
+    .star-rating-input label:hover ~ label {
+        color: #ffc107;
+    }
+    
+    .rating-value-display {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ffc107;
+    }
+    
+    .rating-slider {
+        width: 100%;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="rating-container">
+    <div class="mb-3">
+        <label class="form-label fw-bold">@ViewData["Label"]</label>
+        <div class="card bg-light p-4">
+            <div class="star-rating-input" id="@ViewData["InputId"]-stars">
+                @for (decimal i = 5.0m; i >= 0.5m; i -= 0.5m)
+                {
+                    var id = $"{ViewData["InputId"]}-{i.ToString("0.0").Replace(".", "-")}";
+                    <input type="radio" name="@ViewData["InputName"]" id="@id" value="@i.ToString("0.0")" />
+                    <label for="@id" title="@i.ToString("0.0")">
+                        @if (i % 1 == 0)
+                        {
+                            <i class="bi bi-star-fill"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-star-half"></i>
+                        }
+                    </label>
+                }
+            </div>
+            
+            <input type="range" class="form-range rating-slider" 
+                   min="0.5" max="5.0" step="0.1" value="5.0" 
+                   id="@ViewData["InputId"]-slider"
+                   oninput="updateRatingFromSlider('@ViewData["InputId"]', this.value)" />
+            
+            <div class="rating-value-display" id="@ViewData["InputId"]-display">
+                5.0 ⭐
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateRatingFromSlider(inputId, value) {
+        const displayValue = parseFloat(value).toFixed(1);
+        document.getElementById(inputId + '-display').textContent = displayValue + ' ⭐';
+        
+        const starInputs = document.querySelectorAll(`input[name="${inputId}"]`);
+        starInputs.forEach(input => {
+            if (Math.abs(parseFloat(input.value) - parseFloat(value)) < 0.05) {
+                input.checked = true;
+            }
+        });
+        
+        updateStarColors(inputId, parseFloat(value));
+    }
+    
+    function updateStarColors(inputId, rating) {
+        const labels = document.querySelectorAll(`#${inputId}-stars label`);
+        const totalStars = 5;
+        
+        labels.forEach((label, index) => {
+            const starValue = totalStars - (index * 0.5);
+            if (starValue <= rating) {
+                label.style.color = '#ffc107';
+            } else {
+                label.style.color = '#ddd';
+            }
+        });
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputId = '@ViewData["InputId"]';
+        const radioInputs = document.querySelectorAll(`input[name="${inputId}"]`);
+        
+        radioInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                const value = this.value;
+                document.getElementById(inputId + '-display').textContent = value + ' ⭐';
+                document.getElementById(inputId + '-slider').value = value;
+                updateStarColors(inputId, parseFloat(value));
+            });
+        });
+        
+        const defaultValue = document.querySelector(`input[name="${inputId}"]:checked`);
+        if (defaultValue) {
+            updateStarColors(inputId, parseFloat(defaultValue.value));
+        } else {
+            updateStarColors(inputId, 5.0);
+        }
+    });
+</script>

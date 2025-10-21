@@ -1,0 +1,331 @@
+@model dynamic
+
+@{
+    ViewData["Title"] = "Panel de Estadísticas";
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="fw-bold">
+            <i class="bi bi-graph-up text-primary"></i> Panel de Estadísticas
+        </h1>
+        <div>
+            <button class="btn btn-primary" onclick="window.print()">
+                <i class="bi bi-printer"></i> Imprimir
+            </button>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-house"></i> Inicio
+            </a>
+        </div>
+    </div>
+
+    <!-- Tarjetas de Resumen -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary shadow h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-1">Restaurantes</h6>
+                            <h2 class="mb-0">@Model.TotalRestaurantes</h2>
+                        </div>
+                        <i class="bi bi-shop display-4"></i>
+                    </div>
+                </div>
+                <div class="card-footer bg-primary bg-opacity-75">
+                    <small>@Model.RestaurantesDestacados destacados</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-success shadow h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-1">Productos</h6>
+                            <h2 class="mb-0">@Model.TotalProductos</h2>
+                        </div>
+                        <i class="bi bi-card-list display-4"></i>
+                    </div>
+                </div>
+                <div class="card-footer bg-success bg-opacity-75">
+                    <small>En menús activos</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-warning shadow h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-1">Reseñas</h6>
+                            <h2 class="mb-0">@Model.TotalResenas</h2>
+                        </div>
+                        <i class="bi bi-chat-quote display-4"></i>
+                    </div>
+                </div>
+                <div class="card-footer bg-warning bg-opacity-75">
+                    <small>Calificación promedio: @Model.PromedioCalificacion.ToString("F2") ⭐</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-info shadow h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-1">Usuarios</h6>
+                            <h2 class="mb-0">@Model.TotalUsuarios</h2>
+                        </div>
+                        <i class="bi bi-people display-4"></i>
+                    </div>
+                </div>
+                <div class="card-footer bg-info bg-opacity-75">
+                    <small>@Model.UsuariosActivos activos (30 días)</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <!-- Gráfico de Reseñas por Mes -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0"><i class="bi bi-bar-chart"></i> Reseñas por Mes</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="resenasPorMesChart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Restaurantes Mejor Calificados -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0"><i class="bi bi-trophy"></i> Top 5 Restaurantes</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        @foreach (var rest in Model.RestaurantesMejorCalificados)
+                        {
+                            <div class="list-group-item px-0">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="mb-1">@rest.Nombre</h6>
+                                        <small class="text-muted">@rest.TotalResenas reseñas</small>
+                                    </div>
+                                    <span class="badge bg-warning text-dark">
+                                        @rest.Rating.ToString("F2") ⭐
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <!-- Productos por Categoría -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0"><i class="bi bi-pie-chart"></i> Productos por Categoría</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="productosPorCategoriaChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Restaurantes por Tipo de Cocina -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0"><i class="bi bi-pie-chart-fill"></i> Restaurantes por Tipo de Cocina</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="restaurantesPorTipoChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Últimas Reseñas -->
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0"><i class="bi bi-clock-history"></i> Últimas Reseñas</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Restaurante</th>
+                                    <th>Título</th>
+                                    <th>Calificación</th>
+                                    <th>Fecha</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var resena in Model.UltimasResenas)
+                                {
+                                    <tr>
+                                        <td>@resena.Restaurante.Nombre</td>
+                                        <td>@resena.Titulo</td>
+                                        <td>
+                                            <span class="badge bg-warning text-dark">
+                                                @resena.Calificacion.ToString("F1") ⭐
+                                            </span>
+                                        </td>
+                                        <td>@resena.FechaCreacion.ToString("dd/MM/yyyy")</td>
+                                        <td>
+                                            <a asp-controller="Restaurantes" asp-action="Details" 
+                                               asp-route-id="@resena.RestauranteId" class="btn btn-sm btn-primary">
+                                                Ver
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Estadísticas Adicionales -->
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-inbox display-4 text-muted"></i>
+                    <h3 class="mt-3">@Model.RestaurantesSinResenas</h3>
+                    <p class="text-muted">Restaurantes sin reseñas</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-envelope display-4 text-primary"></i>
+                    <h3 class="mt-3">@Model.TotalContactos</h3>
+                    <p class="text-muted">Mensajes de contacto</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-lightbulb display-4 text-warning"></i>
+                    <h3 class="mt-3">@Model.TotalSugerencias</h3>
+                    <p class="text-muted">Sugerencias recibidas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Gráfico de Reseñas por Mes
+        const resenasPorMesData = @Html.Raw(Json.Serialize(Model.ResenasPorMes));
+        const ctx1 = document.getElementById('resenasPorMesChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: resenasPorMesData.map(item => item.mes),
+                datasets: [{
+                    label: 'Número de Reseñas',
+                    data: resenasPorMesData.map(item => item.total),
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Gráfico de Productos por Categoría
+        const productosPorCategoriaData = @Html.Raw(Json.Serialize(Model.ProductosPorCategoria));
+        const ctx2 = document.getElementById('productosPorCategoriaChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: productosPorCategoriaData.map(item => item.categoria),
+                datasets: [{
+                    data: productosPorCategoriaData.map(item => item.total),
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(153, 102, 255)',
+                        'rgb(255, 159, 64)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    }
+                }
+            }
+        });
+
+        // Gráfico de Restaurantes por Tipo
+        const restaurantesPorTipoData = @Html.Raw(Json.Serialize(Model.RestaurantesPorTipoCocina));
+        const ctx3 = document.getElementById('restaurantesPorTipoChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: restaurantesPorTipoData.map(item => item.tipoCocina),
+                datasets: [{
+                    data: restaurantesPorTipoData.map(item => item.total),
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(153, 102, 255)',
+                        'rgb(255, 159, 64)',
+                        'rgb(201, 203, 207)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    }
+                }
+            }
+        });
+    </script>
+}

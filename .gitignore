@@ -1,0 +1,33 @@
+# Visual Studio / .NET
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider, VSCode
+.idea/
+.vscode/
+
+# NuGet
+*.nupkg
+packages/
+
+# ASP.NET / other
+appsettings*.json
+secrets.json
+wwwroot/lib/
+
+# SQLite files
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+*.log
+
+# OS files
+Thumbs.db
+.DS_Store
