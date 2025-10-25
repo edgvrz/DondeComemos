@@ -12,7 +12,10 @@ namespace DondeComemos.Controllers
             _context = context;
         }
 
+<<<<<<< HEAD
         // Vista general + búsqueda
+=======
+>>>>>>> b808e6f (Avance Mauricio Benavente)
         public IActionResult Index(string? search)
         {
             var query = _context.Restaurantes.AsQueryable();
@@ -28,7 +31,10 @@ namespace DondeComemos.Controllers
             return View(query.ToList());
         }
 
+<<<<<<< HEAD
         // Vista de detalles
+=======
+>>>>>>> b808e6f (Avance Mauricio Benavente)
         public IActionResult Detalle(int id)
         {
             var restaurante = _context.Restaurantes.FirstOrDefault(r => r.Id == id);

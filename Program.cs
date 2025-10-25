@@ -1,9 +1,16 @@
 using Microsoft.AspNetCore.Identity;
+<<<<<<< HEAD
 using Microsoft.EntityFrameworkCore;
 using DondeComemos.Data;
 using DondeComemos.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
+=======
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
+using DondeComemos.Data;
+using DondeComemos.Services;
+>>>>>>> b808e6f (Avance Mauricio Benavente)
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,12 +23,24 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // ✅ Identity con Roles
+<<<<<<< HEAD
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+=======
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
+    options.SignIn.RequireConfirmedAccount = false; // ⚠️ Cambiado a false para desarrollo
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+})
+>>>>>>> b808e6f (Avance Mauricio Benavente)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddControllersWithViews();
 
+<<<<<<< HEAD
 // ✅ Agrega Razor Pages
 builder.Services.AddRazorPages();
 
@@ -34,6 +53,17 @@ builder.Services.AddSingleton<IEmailSender, FakeEmailSender>();
 
 
 
+=======
+// Agrega Razor Pages
+builder.Services.AddRazorPages();
+
+// ✅ Registrar servicios (IMPORTANTE: IEmailSender debe registrarse)
+builder.Services.AddScoped<IHomeService, HomeService>();
+builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IPdfService, PdfService>();
+builder.Services.AddScoped<IEmailSender, IdentityEmailSender>(); // ⭐ NUEVO
+>>>>>>> b808e6f (Avance Mauricio Benavente)
 
 var app = builder.Build();
 
@@ -53,7 +83,11 @@ using (var scope = app.Services.CreateScope())
         }
     }
 
+<<<<<<< HEAD
     // ✅ Crear un Admin por defecto si no existe
+=======
+    // Opcional: Crear un Admin por defecto si no existe
+>>>>>>> b808e6f (Avance Mauricio Benavente)
     string adminEmail = "admin@dondecomemos.com";
     string adminPassword = "Admin123!"; // cámbialo luego
 
@@ -82,16 +116,28 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+<<<<<<< HEAD
 
 app.UseAuthentication(); 
 app.UseAuthorization();  
 
 // ✅ Rutas por defecto
+=======
+app.UseAuthentication();
+app.UseAuthorization();
+
+>>>>>>> b808e6f (Avance Mauricio Benavente)
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+<<<<<<< HEAD
 // ✅ Razor Pages
 app.MapRazorPages();
 
 app.Run();
+=======
+app.MapRazorPages();
+
+app.Run();
+>>>>>>> b808e6f (Avance Mauricio Benavente)

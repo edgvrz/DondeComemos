@@ -1,12 +1,47 @@
+<<<<<<< HEAD
 /bin
 /obj
 
 # Base de datos local
+=======
+# Visual Studio / .NET
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider, VSCode
+.idea/
+.vscode/
+
+# NuGet
+*.nupkg
+packages/
+
+# ASP.NET / other
+appsettings*.json
+secrets.json
+wwwroot/lib/
+
+# SQLite files
+>>>>>>> b808e6f (Avance Mauricio Benavente)
 *.db
 *.db-shm
 *.db-wal
 
+<<<<<<< HEAD
 # Archivos temporales de usuario
 *.user
 *.cache
 *.log
+=======
+# Logs
+*.log
+
+# OS files
+Thumbs.db
+.DS_Store
+>>>>>>> b808e6f (Avance Mauricio Benavente)

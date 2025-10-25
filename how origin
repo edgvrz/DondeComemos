@@ -1,0 +1,19 @@
+* [32m(no branch, rebasing main)                         [m c4838d3 Virtualizacion
+  feature/mi-avance                                  [m 30c06ef [ahead 21, behind 1] Cambios
+  main                                               [m b808e6f Avance Mauricio Benavente
+  mi-avance-backup                                   [m b808e6f Avance Mauricio Benavente
+  [31mremotes/origin/HEAD                                [m -> origin/main
+  [31mremotes/origin/PrimerInterfaz                      [m 2588008 MejoradelLogin
+  [31mremotes/origin/avance3                             [m 1329634 Mauricio Benavente Avance 3
+  [31mremotes/origin/feature/contacto-catalogo-sesiones  [m 7c72bac RolesMejoraLoginCRUD
+  [31mremotes/origin/feature/mi-avance                   [m b808e6f Avance Mauricio Benavente
+  [31mremotes/origin/feature/watchlist                   [m ff213d3 Agrega funcionalidad completa de Watchlist (favoritos con CRUD y vista)
+  [31mremotes/origin/main                                [m c4838d3 Virtualizacion
+  [31mremotes/origin/virtualizacion                      [m 72beae6 Agrego Dockerfile para despliegue en Render
+  [31mremotes/upstream/HEAD                              [m -> upstream/main
+  [31mremotes/upstream/PrimerInterfaz                    [m 2588008 MejoradelLogin
+  [31mremotes/upstream/avance3                           [m 1329634 Mauricio Benavente Avance 3
+  [31mremotes/upstream/feature/contacto-catalogo-sesiones[m 7c72bac RolesMejoraLoginCRUD
+  [31mremotes/upstream/feature/watchlist                 [m ff213d3 Agrega funcionalidad completa de Watchlist (favoritos con CRUD y vista)
+  [31mremotes/upstream/main                              [m c4838d3 Virtualizacion
+  [31mremotes/upstream/virtualizacion                    [m 72beae6 Agrego Dockerfile para despliegue en Render

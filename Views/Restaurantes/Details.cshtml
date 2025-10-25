@@ -1,4 +1,5 @@
 @model DondeComemos.Models.Restaurante
+<<<<<<< HEAD
 
 @{
     ViewData["Title"] = "Detalles del Restaurante";
@@ -24,3 +25,223 @@
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
     <a asp-action="Index" class="btn btn-secondary">Volver</a>
 </div>
+=======
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = Model.Nombre;
+    var userId = UserManager.GetUserId(User);
+    var yaReseno = Model.Resenas.Any(r => r.UserId == userId);
+}
+
+<style>
+    .restaurant-hero {
+        position: relative;
+        height: 400px;
+        background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), 
+                    url('@(string.IsNullOrEmpty(Model.ImagenUrl) ? "/img/restaurant-default.jpg" : Model.ImagenUrl)') center/cover;
+        color: white;
+        display: flex;
+        align-items: flex-end;
+        border-radius: 15px;
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+    
+    .hero-content {
+        padding: 40px;
+        width: 100%;
+        background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    }
+    
+    .star-rating {
+        color: #ffc107;
+        font-size: 1.5rem;
+    }
+    
+    .product-card {
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    }
+    
+    .rating-slider-input {
+        width: 100%;
+    }
+    
+    .rating-display {
+        text-align: center;
+        font-size: 2rem;
+        color: #ffc107;
+        font-weight: bold;
+    }
+</style>
+
+<div class="restaurant-hero">
+    <div class="hero-content">
+        <div class="d-flex justify-content-between align-items-end">
+            <div>
+                <h1 class="display-4 fw-bold mb-2">@Model.Nombre</h1>
+                <div class="mb-2">
+                    @if (!string.IsNullOrEmpty(Model.TipoCocina))
+                    {
+                        <span class="badge bg-light text-dark me-2">@Model.TipoCocina</span>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.RangoPrecios))
+                    {
+                        <span class="badge bg-success">@Model.RangoPrecios</span>
+                    }
+                </div>
+                <div class="star-rating mb-2">
+                    @{
+                        var fullStars = (int)Math.Floor(Model.RatingPromedio);
+                        var hasHalfStar = (Model.RatingPromedio - fullStars) >= 0.5;
+                        var emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+                    }
+                    @for (int i = 0; i < fullStars; i++)
+                    {
+                        <i class="bi bi-star-fill"></i>
+                    }
+                    @if (hasHalfStar)
+                    {
+                        <i class="bi bi-star-half"></i>
+                    }
+                    @for (int i = 0; i < emptyStars; i++)
+                    {
+                        <i class="bi bi-star"></i>
+                    }
+                    <span class="ms-2 fs-5">@Model.RatingPromedio.ToString("F1") (@Model.TotalResenas reseñas)</span>
+                </div>
+                <p class="mb-0"><i class="bi bi-geo-alt"></i> @Model.Direccion</p>
+            </div>
+            <div class="text-end">
+                @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Productos" asp-action="Index" asp-route-restauranteId="@Model.Id" 
+                       class="btn btn-light me-2">
+                        <i class="bi bi-gear"></i> Gestionar Menú
+                    </a>
+                }
+                <button class="btn btn-danger" onclick="exportarPDF()">
+                    <i class="bi bi-file-pdf"></i> Exportar Menú
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    @if (SignInManager.IsSignedIn(User) && !yaReseno)
+    {
+        <div class="alert alert-info mb-4">
+            <h5><i class="bi bi-pencil-square"></i> Deja tu reseña</h5>
+            <form asp-controller="Resenas" asp-action="Create" method="post">
+                <input type="hidden" name="RestauranteId" value="@Model.Id" />
+                
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label fw-bold">Calificación General</label>
+                        <div class="card bg-light p-3">
+                            <input type="range" class="form-range rating-slider-input" 
+                                   min="0.5" max="5.0" step="0.1" 
+                                   name="Calificacion" id="calificacionGeneral" value="5.0" 
+                                   oninput="updateRatingDisplay('calificacionGeneral', 'ratingDisplay', this.value)">
+                            <div class="rating-display" id="ratingDisplay">5.0 ⭐</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Calidad de Comida (0.5-5.0)</label>
+                        <input type="range" class="form-range" min="0.5" max="5.0" step="0.1" 
+                               name="CalidadComida" value="5.0" 
+                               oninput="this.nextElementSibling.textContent = this.value + ' ⭐'">
+                        <small class="d-block text-center">5.0 ⭐</small>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Servicio (0.5-5.0)</label>
+                        <input type="range" class="form-range" min="0.5" max="5.0" step="0.1" 
+                               name="Servicio" value="5.0"
+                               oninput="this.nextElementSibling.textContent = this.value + ' ⭐'">
+                        <small class="d-block text-center">5.0 ⭐</small>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Ambiente (0.5-5.0)</label>
+                        <input type="range" class="form-range" min="0.5" max="5.0" step="0.1" 
+                               name="Ambiente" value="5.0"
+                               oninput="this.nextElementSibling.textContent = this.value + ' ⭐'">
+                        <small class="d-block text-center">5.0 ⭐</small>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Relación Calidad-Precio (0.5-5.0)</label>
+                        <input type="range" class="form-range" min="0.5" max="5.0" step="0.1" 
+                               name="RelacionPrecio" value="5.0"
+                               oninput="this.nextElementSibling.textContent = this.value + ' ⭐'">
+                        <small class="d-block text-center">5.0 ⭐</small>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Título de tu reseña</label>
+                    <input type="text" class="form-control" name="Titulo" required 
+                           placeholder="Ej: Excelente experiencia gastronómica">
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Tu comentario</label>
+                    <textarea class="form-control" name="Comentario" rows="4" required
+                              placeholder="Cuéntanos sobre tu experiencia..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-send"></i> Publicar Reseña
+                </button>
+            </form>
+        </div>
+    }
+    
+    <a asp-action="Search" class="btn btn-secondary mb-4">
+        <i class="bi bi-arrow-left"></i> Volver a la búsqueda
+    </a>
+</div>
+
+@section Scripts {
+    @if (Model.Latitud.HasValue && Model.Longitud.HasValue)
+    {
+        <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY_AQUI"></script>
+        <script>
+            function initMap() {
+                const position = { lat: @Model.Latitud.Value, lng: @Model.Longitud.Value };
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 16,
+                    center: position,
+                });
+                new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    title: "@Model.Nombre"
+                });
+            }
+            window.onload = initMap;
+        </script>
+    }
+    
+    <script>
+        function updateRatingDisplay(inputId, displayId, value) {
+            const displayValue = parseFloat(value).toFixed(1);
+            document.getElementById(displayId).textContent = displayValue + ' ⭐';
+        }
+        
+        function exportarPDF() {
+            window.open('/Restaurantes/ExportarMenuPdf/@Model.Id', '_blank');
+        }
+    </script>
+}
+>>>>>>> b808e6f (Avance Mauricio Benavente)
