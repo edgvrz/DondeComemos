@@ -4,6 +4,7 @@
     ViewData["Title"] = "Administrar Restaurantes";
 }
 
+<<<<<<< HEAD
 <div class="container py-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
@@ -181,3 +182,41 @@
         </div>
     }
 </div>
+=======
+<div class="container py-4">
+    <h2 class="fw-bold">🍽️ Restaurantes</h2>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">➕ Nuevo Restaurante</a>
+    </p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => m.Nombre)</th>
+                <th>@Html.DisplayNameFor(m => m.Direccion)</th>
+                <th>@Html.DisplayNameFor(m => m.Rating)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nombre</td>
+                <td>@item.Direccion</td>
+                <td>⭐ @item.Rating</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+<<<<<<< HEAD
+</div>
+=======
+</div>
+>>>>>>> b808e6f (Avance Mauricio Benavente)
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7

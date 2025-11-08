@@ -1,9 +1,49 @@
 @model DondeComemos.Models.Contacto
 
 @{
+<<<<<<< HEAD
     ViewBag.Title = "Contacto";
 }
 
+=======
+<<<<<<< HEAD
+    ViewBag.Title= "Contact";
+}
+<h1>Contacto</h1>
+
+<form method="post" asp-action="Registrar">
+    <div class="form-group">
+    <label asp-for="Nombre" class="control-label"></label>
+    <input asp-for="Nombre" class="form-control" />                                                             
+    <span asp-validation-for="Nombre" class="text-danger"></span>   
+    </div>
+    <div class="form-group mt-2">
+    <label asp-for="Email" class="control-label"></label>
+    <input asp-for="Email" class="form-control" />
+    <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-2">
+    <label asp-for="Mensaje" class="control-label"></label>
+    <textarea asp-for="Mensaje" class="form-control"></textarea>
+    <span asp-validation-for="Mensaje" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-2">
+    <label asp-for="Satisfaccion" class="control-label"></label>
+    <input asp-for="Satisfaccion" class="form-control" />
+    <span asp-validation-for="Satisfaccion" class="text-danger"></span>
+    <button type="submit" class="btn btn-primary mt-2">Enviar</button>
+</form>
+<h1>@ViewData["Mensaje"]</h1>
+
+@section  Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+=======
+    ViewBag.Title = "Contacto";
+}
+
+<!-- Hero Section -->
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 <section class="bg-dark text-white py-5">
     <div class="container text-center">
         <h1 class="display-4 fw-bold mb-3">
@@ -24,6 +64,10 @@
     }
 
     <div class="row g-4">
+<<<<<<< HEAD
+=======
+        <!-- Formulario de Contacto -->
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         <div class="col-lg-7">
             <div class="card shadow-lg border-0">
                 <div class="card-header bg-primary text-white">
@@ -31,6 +75,7 @@
                 </div>
                 <div class="card-body p-4">
                     <form method="post" asp-action="Registrar">
+<<<<<<< HEAD
                         <div class="mb-3">
                             <label asp-for="Nombre" class="form-label fw-bold">
                                 <i class="bi bi-person"></i> Nombre Completo
@@ -82,13 +127,76 @@
                             <button type="submit" class="btn btn-primary btn-lg">
                                 <i class="bi bi-send-fill"></i> Enviar Mensaje
                             </button>
+=======
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Nombre" class="form-label fw-bold">
+                                    <i class="bi bi-person"></i> Nombre Completo
+                                </label>
+                                <input asp-for="Nombre" class="form-control" placeholder="Juan Pérez" />                                                             
+                                <span asp-validation-for="Nombre" class="text-danger small"></span>   
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="form-label fw-bold">
+                                    <i class="bi bi-envelope"></i> Correo Electrónico
+                                </label>
+                                <input asp-for="Email" class="form-control" placeholder="ejemplo@correo.com" />
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="Satisfaccion" class="form-label fw-bold">
+                                    <i class="bi bi-emoji-smile"></i> Nivel de Satisfacción (1-10)
+                                </label>
+                                <div class="d-flex align-items-center gap-3">
+                                    <input asp-for="Satisfaccion" type="range" class="form-range" 
+                                           min="1" max="10" value="10" 
+                                           oninput="document.getElementById('satisfactionValue').textContent = this.value" />
+                                    <span class="badge bg-success fs-4" id="satisfactionValue">10</span>
+                                </div>
+                                <span asp-validation-for="Satisfaccion" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="Mensaje" class="form-label fw-bold">
+                                    <i class="bi bi-chat-left-text"></i> Tu Mensaje
+                                </label>
+                                <textarea asp-for="Mensaje" class="form-control" rows="6" 
+                                          placeholder="Escribe aquí tu mensaje, consulta o comentario..."></textarea>
+                                <span asp-validation-for="Mensaje" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" asp-for="InPositive" checked />
+                                    <label class="form-check-label" asp-for="InPositive">
+                                        Acepto recibir comunicaciones de DondeComemos
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="bi bi-send-fill"></i> Enviar Mensaje
+                                    </button>
+                                </div>
+                            </div>
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                         </div>
                     </form>
                 </div>
             </div>
         </div>
 
+<<<<<<< HEAD
         <div class="col-lg-5">
+=======
+        <!-- Información de Contacto -->
+        <div class="col-lg-5">
+            <!-- Información Rápida -->
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-body p-4">
                     <h5 class="card-title mb-4">
@@ -132,7 +240,12 @@
                 </div>
             </div>
 
+<<<<<<< HEAD
             <div class="card shadow-sm border-0">
+=======
+            <!-- Redes Sociales -->
+            <div class="card shadow-sm border-0 mb-4">
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                 <div class="card-body p-4 text-center">
                     <h5 class="card-title mb-3">
                         <i class="bi bi-share-fill"></i> Síguenos en Redes Sociales
@@ -147,13 +260,89 @@
                         <a href="#" class="btn btn-outline-danger rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
                             <i class="bi bi-instagram fs-5"></i>
                         </a>
+<<<<<<< HEAD
                     </div>
                 </div>
             </div>
+=======
+                        <a href="#" class="btn btn-outline-success rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-whatsapp fs-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Rápido -->
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h5 class="card-title mb-3">
+                        <i class="bi bi-question-circle-fill text-info"></i> Preguntas Frecuentes
+                    </h5>
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    ¿Cómo agregar un restaurante?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Debes iniciar sesión con una cuenta de administrador para poder agregar restaurantes a la plataforma.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    ¿Es gratuito usar el sitio?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Sí, DondeComemos es completamente gratuito para todos los usuarios.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    ¿Cuánto tardan en responder?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Respondemos todos los mensajes en un plazo máximo de 24-48 horas hábiles.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mapa -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="bi bi-map"></i> Encuéntranos</h5>
+                </div>
+                <div class="card-body p-0">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3827.2398!2d-71.537451!3d-16.409047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91424a55239cd54b%3A0x1f0c2c0e0e0e0e0e!2sArequipa%2C%20Peru!5e0!3m2!1sen!2sus!4v1234567890" 
+                            width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         </div>
     </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b808e6f (Avance Mauricio Benavente)
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7

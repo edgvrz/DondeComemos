@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Gestión de Menú";
+<<<<<<< HEAD
     var restauranteId = ViewBag.RestauranteId;
     var restauranteNombre = ViewBag.RestauranteNombre;
 }
@@ -183,4 +184,145 @@
             </a>
         </div>
     }
+=======
+}
+
+<div class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="mb-0">🍽️ Menú de @ViewBag.RestauranteNombre</h2>
+                    <p class="mb-0 small mt-1">Gestión de productos del restaurante</p>
+                </div>
+                <a asp-action="Create" asp-route-restauranteId="@ViewBag.RestauranteId" class="btn btn-light">
+                    <i class="bi bi-plus-circle"></i> Agregar Producto
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            @if (Model.Any())
+            {
+                var categorias = Model.GroupBy(p => p.Categoria);
+                
+                @foreach (var categoria in categorias)
+                {
+                    <div class="mb-4">
+                        <h4 class="fw-bold text-primary mb-3 border-bottom pb-2">
+                            <i class="bi bi-tag-fill"></i> @categoria.Key (@categoria.Count())
+                        </h4>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 80px;">Imagen</th>
+                                        <th>Producto</th>
+                                        <th>Descripción</th>
+                                        <th style="width: 120px;">Precio</th>
+                                        <th style="width: 100px;">Estado</th>
+                                        <th style="width: 180px;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var producto in categoria)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(producto.ImagenUrl))
+                                                {
+                                                    <img src="@producto.ImagenUrl" class="rounded" 
+                                                         style="width: 60px; height: 60px; object-fit: cover;" 
+                                                         alt="@producto.Nombre" />
+                                                }
+                                                else
+                                                {
+                                                    <div class="bg-light rounded d-flex align-items-center justify-content-center" 
+                                                         style="width: 60px; height: 60px;">
+                                                        <i class="bi bi-image text-muted"></i>
+                                                    </div>
+                                                }
+                                            </td>
+                                            <td>
+                                                <strong>@producto.Nombre</strong>
+                                            </td>
+                                            <td>
+                                                <small class="text-muted">
+                                                    @(string.IsNullOrEmpty(producto.Descripcion) ? 
+                                                      "Sin descripción" : 
+                                                      (producto.Descripcion.Length > 50 ? 
+                                                       producto.Descripcion.Substring(0, 50) + "..." : 
+                                                       producto.Descripcion))
+                                                </small>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-success fs-6">S/ @producto.Precio.ToString("F2")</span>
+                                            </td>
+                                            <td>
+                                                @if (producto.Disponible)
+                                                {
+                                                    <span class="badge bg-success">
+                                                        <i class="bi bi-check-circle"></i> Disponible
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary">
+                                                        <i class="bi bi-x-circle"></i> No disponible
+                                                    </span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="btn-group btn-group-sm" role="group">
+                                                    <a asp-action="Edit" asp-route-id="@producto.Id" 
+                                                       class="btn btn-warning" title="Editar">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                    <a asp-action="Delete" asp-route-id="@producto.Id" 
+                                                       class="btn btn-danger" title="Eliminar">
+                                                        <i class="bi bi-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <i class="bi bi-inbox display-1 text-muted"></i>
+                    <h4 class="text-muted mt-3">No hay productos en el menú</h4>
+                    <p class="text-muted">Comienza agregando productos para este restaurante</p>
+                    <a asp-action="Create" asp-route-restauranteId="@ViewBag.RestauranteId" 
+                       class="btn btn-primary mt-3">
+                        <i class="bi bi-plus-circle"></i> Agregar Primer Producto
+                    </a>
+                </div>
+            }
+
+            <div class="mt-4">
+                <a asp-controller="Restaurantes" asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Volver a Restaurantes
+                </a>
+                <a asp-controller="Restaurantes" asp-action="Details" asp-route-id="@ViewBag.RestauranteId" 
+                   class="btn btn-info">
+                    <i class="bi bi-eye"></i> Ver Vista Pública
+                </a>
+            </div>
+        </div>
+    </div>
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 </div>

@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+/bin
+/obj
+
+# Base de datos local
+=======
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 # Visual Studio / .NET
 bin/
 obj/
@@ -17,15 +26,23 @@ packages/
 
 # ASP.NET / other
 appsettings*.json
+<<<<<<< HEAD
 !appsettings.Development.json
+=======
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 secrets.json
 wwwroot/lib/
 
 # SQLite files
+<<<<<<< HEAD
+=======
+>>>>>>> b808e6f (Avance Mauricio Benavente)
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 *.db
 *.db-shm
 *.db-wal
 
+<<<<<<< HEAD
 # Uploads (archivos subidos por usuarios)
 wwwroot/uploads/*
 !wwwroot/uploads/.gitkeep
@@ -33,9 +50,22 @@ wwwroot/uploads/*
 !wwwroot/uploads/productos/.gitkeep
 !wwwroot/uploads/perfiles/.gitkeep
 
+=======
+<<<<<<< HEAD
+# Archivos temporales de usuario
+*.user
+*.cache
+*.log
+=======
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 # Logs
 *.log
 
 # OS files
 Thumbs.db
+<<<<<<< HEAD
 .DS_Store
+=======
+.DS_Store
+>>>>>>> b808e6f (Avance Mauricio Benavente)
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7

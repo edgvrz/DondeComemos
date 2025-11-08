@@ -13,7 +13,15 @@ namespace DondeComemos.Services
     {
         public byte[] GenerarMenuPdf(Restaurante restaurante, List<Producto> productos)
         {
+<<<<<<< HEAD
             var html = GenerarMenuHtml(restaurante, productos);
+=======
+            // Generar HTML del menú
+            var html = GenerarMenuHtml(restaurante, productos);
+            
+            // Convertir HTML a bytes (en producción usa una librería como iTextSharp o DinkToPdf)
+            // Por ahora retornamos el HTML como bytes para demostración
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
             return Encoding.UTF8.GetBytes(html);
         }
 

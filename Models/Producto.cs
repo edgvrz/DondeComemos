@@ -63,9 +63,17 @@ namespace DondeComemos.Models
         [Display(Name = "Orden")]
         public int Orden { get; set; } = 0;
         
+<<<<<<< HEAD
         [Required]
         public int RestauranteId { get; set; }
         
+=======
+        // Foreign Key
+        [Required]
+        public int RestauranteId { get; set; }
+        
+        // Navigation Property
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         public virtual Restaurante? Restaurante { get; set; }
         
         [NotMapped]

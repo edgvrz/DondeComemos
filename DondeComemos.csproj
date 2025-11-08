@@ -4,6 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+<<<<<<< HEAD
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,12 +16,27 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.9" />
+=======
+    <UserSecretsId>aspnet-DondeComemos-5a8e3813-ef10-4ff1-b537-04dc10a7d56b</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.5" />
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+<<<<<<< HEAD
     <PackageReference Include="Stripe.net" Version="49.2.0" />
+=======
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
   </ItemGroup>
 
 </Project>

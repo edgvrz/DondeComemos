@@ -1,4 +1,5 @@
 @model IEnumerable<DondeComemos.Models.Restaurante>
+<<<<<<< HEAD
 
 @{
     ViewData["Title"] = "Descubre Restaurantes";
@@ -343,12 +344,182 @@
                             style="border-radius: 15px; font-weight: 600;">
                         <i class="bi bi-x-circle"></i> Limpiar Filtros
                     </button>
+=======
+<<<<<<< HEAD
+@{
+    ViewData["Title"] = "Buscar Restaurantes";
+    var favoritos = ViewBag.FavoritosIds as List<int> ?? new List<int>();
+}
+
+<h2 class="mt-4 mb-3">Restaurantes Encontrados</h2>
+
+<form asp-action="Search" method="get" class="mb-4">
+    <input type="text" name="q" class="form-control" placeholder="Buscar restaurante..." value="@Context.Request.Query["q"]" />
+</form>
+
+<div class="row">
+@foreach (var r in Model)
+{
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+            <img src="@r.ImagenUrl" class="card-img-top" alt="@r.Nombre" />
+            <div class="card-body">
+                <h5 class="card-title">@r.Nombre</h5>
+                <p class="card-text text-muted">@r.Direccion</p>
+                <p>@r.Descripcion</p>
+                <p><strong>⭐ @r.Rating</strong></p>
+
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    if (favoritos.Contains(r.Id))
+                    {
+                        <form asp-controller="Watchlist" asp-action="Remove" method="post">
+                            <input type="hidden" name="restauranteId" value="@r.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="bi bi-heartbreak"></i> Quitar favorito
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-controller="Watchlist" asp-action="Add" method="post">
+                            <input type="hidden" name="restauranteId" value="@r.Id" />
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-heart"></i> Agregar a favoritos
+                            </button>
+                        </form>
+                    }
+                }
+                else
+                {
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-box-arrow-in-right"></i> Inicia sesión para guardar
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+}
+</div>
+=======
+
+@{
+    ViewData["Title"] = "Búsqueda de Restaurantes";
+}
+
+<div class="container-fluid py-4">
+    <!-- Hero Section -->
+    <div class="bg-dark text-white p-4 rounded mb-4">
+        <h2 class="fw-bold mb-3">🍴 Encuentra tu restaurante ideal</h2>
+        <p class="lead mb-0">Explora los mejores lugares para comer en Arequipa</p>
+    </div>
+
+    <div class="row">
+        <!-- Filtros Laterales -->
+        <div class="col-lg-3 mb-4">
+            <div class="card shadow-sm sticky-top" style="top: 20px;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-funnel"></i> Filtros</h5>
+                </div>
+                <div class="card-body">
+                    <form method="get" id="filterForm">
+                        <!-- Búsqueda por nombre -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-search"></i> Buscar
+                            </label>
+                            <input type="text" name="q" class="form-control" 
+                                   placeholder="Nombre o dirección..." 
+                                   value="@Context.Request.Query["q"]" />
+                        </div>
+
+                        <!-- Filtro por Rating -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-star-fill text-warning"></i> Calificación
+                            </label>
+                            <select name="rating" class="form-select">
+                                <option value="">Todas</option>
+                                <option value="5">⭐⭐⭐⭐⭐ 5 Estrellas</option>
+                                <option value="4">⭐⭐⭐⭐ 4+ Estrellas</option>
+                                <option value="3">⭐⭐⭐ 3+ Estrellas</option>
+                                <option value="2">⭐⭐ 2+ Estrellas</option>
+                            </select>
+                        </div>
+
+                        <!-- Filtro por Tipo de Cocina -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-egg-fried"></i> Tipo de Cocina
+                            </label>
+                            <select name="tipo" class="form-select">
+                                <option value="">Todos</option>
+                                <option value="Peruana">Peruana</option>
+                                <option value="Italiana">Italiana</option>
+                                <option value="China">China</option>
+                                <option value="Japonesa">Japonesa</option>
+                                <option value="Mexicana">Mexicana</option>
+                                <option value="Criolla">Criolla</option>
+                                <option value="Marina">Marina</option>
+                                <option value="Vegetariana">Vegetariana</option>
+                            </select>
+                        </div>
+
+                        <!-- Filtro por Rango de Precios -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-currency-dollar"></i> Precio
+                            </label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="precio" value="$" id="precio1">
+                                <label class="form-check-label" for="precio1">
+                                    $ Económico
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="precio" value="$$" id="precio2">
+                                <label class="form-check-label" for="precio2">
+                                    $$ Moderado
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="precio" value="$$$" id="precio3">
+                                <label class="form-check-label" for="precio3">
+                                    $$$ Caro
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="precio" value="$$$$" id="precio4">
+                                <label class="form-check-label" for="precio4">
+                                    $$$$ Premium
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Buscar por ubicación -->
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-outline-success w-100" onclick="buscarCercanos()">
+                                <i class="bi bi-geo-alt"></i> Buscar Cercanos
+                            </button>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search"></i> Aplicar Filtros
+                            </button>
+                            <a href="@Url.Action("Search")" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle"></i> Limpiar
+                            </a>
+                        </div>
+                    </form>
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                 </div>
             </div>
         </div>
 
         <!-- Lista de Restaurantes -->
         <div class="col-lg-9">
+<<<<<<< HEAD
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="fw-bold mb-0">
                     <span id="resultCount">@Model.Count()</span> Restaurantes Encontrados
@@ -438,6 +609,65 @@
                                        class="btn btn-primary btn-lg"
                                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 15px; font-weight: 600;">
                                         Ver Menú y Detalles <i class="bi bi-arrow-right ms-2"></i>
+=======
+            <!-- Ordenamiento -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <p class="text-muted mb-0">
+                    Se encontraron <strong>@Model.Count()</strong> restaurantes
+                </p>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-secondary btn-sm active">
+                        <i class="bi bi-star"></i> Mejor Puntuados
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-geo"></i> Más Cercanos
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-cash"></i> Precio
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grid de Restaurantes -->
+            <div class="row g-3">
+                @foreach (var r in Model)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm restaurant-card">
+                            <div class="position-relative">
+                                <img src="@(string.IsNullOrEmpty(r.ImagenUrl) ? "/img/restaurant-default.jpg" : r.ImagenUrl)" 
+                                     class="card-img-top" alt="@r.Nombre"
+                                     style="height:200px; object-fit:cover;" />
+                                <div class="position-absolute top-0 end-0 m-2">
+                                    <span class="badge bg-warning text-dark">
+                                        <i class="bi bi-star-fill"></i> @r.Rating
+                                    </span>
+                                </div>
+                                @if (!string.IsNullOrEmpty(r.RangoPrecios))
+                                {
+                                    <div class="position-absolute top-0 start-0 m-2">
+                                        <span class="badge bg-success">@r.RangoPrecios</span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">@r.Nombre</h5>
+                                @if (!string.IsNullOrEmpty(r.TipoCocina))
+                                {
+                                    <p class="text-muted small mb-1">
+                                        <i class="bi bi-tag"></i> @r.TipoCocina
+                                    </p>
+                                }
+                                <p class="text-muted small mb-2">
+                                    <i class="bi bi-geo-alt"></i> @r.Direccion
+                                </p>
+                                <p class="card-text text-truncate">@r.Descripcion</p>
+                                
+                                <div class="d-grid">
+                                    <a asp-controller="Restaurantes" asp-action="Details" 
+                                       asp-route-id="@r.Id" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-eye"></i> Ver Detalles y Menú
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                                     </a>
                                 </div>
                             </div>
@@ -446,6 +676,7 @@
                 }
             </div>
 
+<<<<<<< HEAD
             <div id="noResults" class="text-center d-none mt-5 p-5">
                 <i class="bi bi-search display-1 text-muted mb-4"></i>
                 <h3 class="fw-bold mb-3">No se encontraron restaurantes</h3>
@@ -454,10 +685,21 @@
                     Limpiar Filtros
                 </button>
             </div>
+=======
+            @if (!Model.Any())
+            {
+                <div class="text-center py-5">
+                    <i class="bi bi-inbox display-1 text-muted"></i>
+                    <h4 class="text-muted mt-3">No se encontraron restaurantes</h4>
+                    <p class="text-muted">Intenta ajustar los filtros de búsqueda</p>
+                </div>
+            }
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         </div>
     </div>
 </div>
 
+<<<<<<< HEAD
 @section Scripts {
     <script>
         function filtrarPorTipo(tipo) {
@@ -543,3 +785,36 @@
         window.addEventListener('load', aplicarFiltros);
     </script>
 }
+=======
+<style>
+    .restaurant-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .restaurant-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        function buscarCercanos() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        window.location.href = `@Url.Action("Search")?lat=${lat}&lng=${lng}&cercanos=true`;
+                    },
+                    function(error) {
+                        alert("No se pudo obtener tu ubicación. Por favor, verifica los permisos.");
+                    }
+                );
+            } else {
+                alert("Tu navegador no soporta geolocalización.");
+            }
+        }
+    </script>
+}
+>>>>>>> b808e6f (Avance Mauricio Benavente)
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7

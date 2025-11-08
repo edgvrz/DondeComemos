@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @model IEnumerable<DondeComemos.Models.Sugerencia>
 
 @{
@@ -45,17 +46,46 @@
         </p>
     </div>
 </div>
+=======
+<<<<<<< HEAD
+@{ ViewData["Title"] = "Sugerencias"; }
+<div class="container py-5">
+    <h2 class="fw-semibold">Sugerencias</h2>
+    <p class="text-muted">Listado de recomendaciones y tendencias.</p>
+</div>
+=======
+@model IEnumerable<DondeComemos.Models.Sugerencia>
+
+@{
+    ViewData["Title"] = "Sugerencias";
+}
+
+<!-- Hero Section -->
+<section class="bg-gradient-primary text-white py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-3">
+            <i class="bi bi-lightbulb"></i> Sugerencias y Opiniones
+        </h1>
+        <p class="lead">Tu opinión nos ayuda a mejorar cada día</p>
+    </div>
+</section>
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 
 <div class="container py-5">
     @if (TempData["Success"] != null)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
+<<<<<<< HEAD
             <i class="bi bi-check-circle-fill me-2"></i>
             @TempData["Success"]
+=======
+            <i class="bi bi-check-circle"></i> @TempData["Success"]
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     }
 
+<<<<<<< HEAD
     <div class="row g-5">
         <!-- Formulario de Sugerencias -->
         <div class="col-lg-6">
@@ -153,11 +183,87 @@
                         <h3 class="fw-bold mb-0">@(Model.Any() ? Model.Select(s => s.Email).Distinct().Count() : 0)</h3>
                         <small class="text-muted">Usuarios Participantes</small>
                     </div>
+=======
+    <div class="row g-4">
+        <!-- Formulario de Nueva Sugerencia -->
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0 sticky-top" style="top: 20px;">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="bi bi-chat-left-text"></i> Envía tu Sugerencia</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div class="mb-3">
+                            <label for="Nombre" class="form-label fw-bold">
+                                <i class="bi bi-person"></i> Nombre
+                            </label>
+                            <input type="text" class="form-control" id="Nombre" name="Nombre" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Email" class="form-label fw-bold">
+                                <i class="bi bi-envelope"></i> Email
+                            </label>
+                            <input type="email" class="form-control" id="Email" name="Email" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Categoria" class="form-label fw-bold">
+                                <i class="bi bi-tag"></i> Categoría
+                            </label>
+                            <select class="form-select" id="Categoria" name="Categoria" required>
+                                <option value="General">General</option>
+                                <option value="Funcionalidad">Funcionalidad</option>
+                                <option value="Diseño">Diseño</option>
+                                <option value="Contenido">Contenido</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Titulo" class="form-label fw-bold">
+                                <i class="bi bi-card-heading"></i> Título
+                            </label>
+                            <input type="text" class="form-control" id="Titulo" name="Titulo" 
+                                   maxlength="100" placeholder="Resumen de tu sugerencia" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Contenido" class="form-label fw-bold">
+                                <i class="bi bi-chat-square-text"></i> Tu Sugerencia
+                            </label>
+                            <textarea class="form-control" id="Contenido" name="Contenido" 
+                                      rows="4" maxlength="1000" 
+                                      placeholder="Cuéntanos cómo podemos mejorar..." required></textarea>
+                            <small class="text-muted">Máximo 1000 caracteres</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Calificacion" class="form-label fw-bold">
+                                <i class="bi bi-star-fill text-warning"></i> Califica el Sitio
+                            </label>
+                            <div class="d-flex gap-2 align-items-center">
+                                <input type="range" class="form-range" min="1" max="5" 
+                                       id="Calificacion" name="Calificacion" value="5" 
+                                       oninput="document.getElementById('ratingValue').textContent = this.value" />
+                                <span class="badge bg-warning text-dark fs-5" id="ratingValue">5</span>
+                                <span class="text-warning">⭐</span>
+                            </div>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-send"></i> Enviar Sugerencia
+                            </button>
+                        </div>
+                    </form>
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                 </div>
             </div>
         </div>
 
         <!-- Lista de Sugerencias Aprobadas -->
+<<<<<<< HEAD
         <div class="col-lg-6">
             <h3 class="fw-bold mb-4">
                 <i class="bi bi-list-stars text-success"></i> Sugerencias de la Comunidad
@@ -169,10 +275,27 @@
                     <i class="bi bi-info-circle fs-1 d-block mb-3"></i>
                     <h5>Aún no hay sugerencias</h5>
                     <p class="mb-0">¡Sé el primero en compartir tu opinión!</p>
+=======
+        <div class="col-lg-7">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold">
+                    <i class="bi bi-chat-dots"></i> Opiniones de la Comunidad
+                </h3>
+                <span class="badge bg-secondary">@Model.Count() opiniones</span>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="text-center py-5">
+                    <i class="bi bi-inbox display-1 text-muted"></i>
+                    <h4 class="text-muted mt-3">Aún no hay sugerencias publicadas</h4>
+                    <p class="text-muted">¡Sé el primero en compartir tu opinión!</p>
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                 </div>
             }
             else
             {
+<<<<<<< HEAD
                 <div class="suggestion-list">
                     @foreach (var sugerencia in Model)
                     {
@@ -213,6 +336,36 @@
                                             <i class="bi bi-star-fill"></i>
                                         }
                                     </div>
+=======
+                <div class="row g-3">
+                    @foreach (var sugerencia in Model)
+                    {
+                        <div class="col-12">
+                            <div class="card shadow-sm border-0 h-100 hover-lift">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <h5 class="card-title mb-1">@sugerencia.Titulo</h5>
+                                            <small class="text-muted">
+                                                <i class="bi bi-person-circle"></i> @sugerencia.Nombre
+                                            </small>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="mb-1">
+                                                @for (int i = 0; i < sugerencia.Calificacion; i++)
+                                                {
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                }
+                                            </div>
+                                            <span class="badge bg-info">@sugerencia.Categoria</span>
+                                        </div>
+                                    </div>
+                                    <p class="card-text text-muted">@sugerencia.Contenido</p>
+                                    <small class="text-muted">
+                                        <i class="bi bi-calendar3"></i> 
+                                        @sugerencia.FechaCreacion.ToString("dd/MM/yyyy")
+                                    </small>
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                                 </div>
                             </div>
                         </div>
@@ -221,6 +374,7 @@
             }
         </div>
     </div>
+<<<<<<< HEAD
 
     <!-- Sección de Beneficios -->
     <div class="row mt-5 g-4">
@@ -261,3 +415,17 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+=======
+</div>
+
+<style>
+    .hover-lift {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-lift:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+</style>
+>>>>>>> b808e6f (Avance Mauricio Benavente)
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7

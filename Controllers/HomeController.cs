@@ -18,6 +18,7 @@ namespace DondeComemos.Controllers
             var model = _homeService.GetHomeData();
             return View(model);
         }
+<<<<<<< HEAD
 
         public IActionResult Privacy()
         {
@@ -31,3 +32,7 @@ namespace DondeComemos.Controllers
         }
     }
 }
+=======
+    }
+}
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7

@@ -17,14 +17,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - DondeComemos</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<<<<<<< HEAD
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
+=======
+<<<<<<< HEAD
+=======
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+>>>>>>> b808e6f (Avance Mauricio Benavente)
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DondeComemos.styles.css" asp-append-version="true" />
+</head>
+<body>
+<<<<<<< HEAD
+    <header class="shadow-sm bg-white">
+        <nav class="navbar navbar-expand-lg container">
+            <a class="navbar-brand fw-semibold text-body" asp-controller="Home" asp-action="Index">
+                dondecomemos.aqp
+=======
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
     <header class="shadow-sm bg-white sticky-top">
         <nav class="navbar navbar-expand-lg container">
             <a class="navbar-brand fw-semibold text-body" asp-controller="Home" asp-action="Index">
                 🍽️ dondecomemos.aqp
+<<<<<<< HEAD
+=======
+>>>>>>> b808e6f (Avance Mauricio Benavente)
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
@@ -33,6 +54,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="mainNav">
+<<<<<<< HEAD
                 <!-- En Views/Shared/_Layout.cshtml, actualizar la sección de navegación -->
 
 <ul class="navbar-nav mx-auto gap-2">
@@ -86,10 +108,34 @@
                     </a>
                 </li>
             </ul>
+=======
+                <ul class="navbar-nav mx-auto gap-2">
+<<<<<<< HEAD
+    <li class="nav-item">
+        <a class="nav-link @Active("Home","Index")" asp-controller="Home" asp-action="Index">Inicio</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @Active("Restaurantes","Search")" asp-controller="Restaurantes" asp-action="Search">Búsqueda</a>
+    </li>
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item">
+        <a class="nav-link @Active("Watchlist","Index")" asp-controller="Watchlist" asp-action="Index">
+            Mis Favoritos
+        </a>
+    </li>
+}
+
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+    {
+        <li class="nav-item">
+            <a class="nav-link @Active("Restaurantes","Index")" asp-controller="Restaurantes" asp-action="Index">Administrar Restaurantes</a>
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         </li>
     }
 
     <li class="nav-item">
+<<<<<<< HEAD
         <a class="nav-link @Active("Contact","Index")" asp-controller="Contact" asp-action="Index">
             <i class="bi bi-envelope"></i> Contacto
         </a>
@@ -101,6 +147,69 @@
     </li>
 </ul>
 
+=======
+        <a class="nav-link @Active("Contact","Index")" asp-controller="Contact" asp-action="Index">Contacto</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @Active("Suggestions","Index")" asp-controller="Suggestions" asp-action="Index">Sugerencias</a>
+    </li>
+    
+</ul>
+
+                <partial name="_LoginPartial" />
+=======
+                    <li class="nav-item">
+                        <a class="nav-link @Active("Home","Index")" asp-controller="Home" asp-action="Index">
+                            <i class="bi bi-house-door"></i> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @Active("Restaurantes","Search")" asp-controller="Restaurantes" asp-action="Search">
+                            <i class="bi bi-search"></i> Búsqueda
+                        </a>
+                    </li>
+
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle @Active("Restaurantes","Index")" href="#" id="adminDropdown" 
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-gear"></i> Administrar
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Restaurantes" asp-action="Index">
+                                        <i class="bi bi-shop"></i> Restaurantes
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Restaurantes" asp-action="Create">
+                                        <i class="bi bi-plus-circle"></i> Agregar Restaurante
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Estadisticas" asp-action="Index">
+                                        <i class="bi bi-graph-up"></i> Estadísticas
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+
+                    <li class="nav-item">
+                        <a class="nav-link @Active("Contact","Index")" asp-controller="Contact" asp-action="Index">
+                            <i class="bi bi-envelope"></i> Contacto
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @Active("Suggestions","Index")" asp-controller="Suggestions" asp-action="Index">
+                            <i class="bi bi-lightbulb"></i> Sugerencias
+                        </a>
+                    </li>
+                </ul>
+
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                 <ul class="navbar-nav ms-lg-3 align-items-lg-center gap-2">
                     @if (SignInManager.IsSignedIn(User))
                     {
@@ -119,6 +228,14 @@
                                         <i class="bi bi-person-circle me-2"></i>Mi Perfil
                                     </a>
                                 </li>
+<<<<<<< HEAD
+=======
+                                <li>
+                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">
+                                        <i class="bi bi-gear me-2"></i>Configuración
+                                    </a>
+                                </li>
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form class="d-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="~/">
@@ -144,16 +261,29 @@
                         </li>
                     }
                 </ul>
+<<<<<<< HEAD
+=======
+>>>>>>> b808e6f (Avance Mauricio Benavente)
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
             </div>
         </nav>
     </header>
 
     <div class="container-fluid p-0">
+<<<<<<< HEAD
         <main role="main" class="pb-0">
+=======
+<<<<<<< HEAD
+        <main role="main" class="pb-3">
+=======
+        <main role="main" class="pb-0">
+>>>>>>> b808e6f (Avance Mauricio Benavente)
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
             @RenderBody()
         </main>
     </div>
 
+<<<<<<< HEAD
     <footer class="bg-dark text-white pt-5 pb-3 mt-5">
         <div class="container">
             <div class="row g-4">
@@ -233,9 +363,28 @@
 
     <!-- Justo antes de </body> -->
     <partial name="_ChatWidget" />
+=======
+<<<<<<< HEAD
+    <footer class="border-top py-4 mt-auto">
+        <div class="container small text-muted">
+            © @DateTime.Now.Year DondeComemos
+        </div>
+    </footer>
+=======
+    @await Html.PartialAsync("_Footer")
+>>>>>>> b808e6f (Avance Mauricio Benavente)
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+<<<<<<< HEAD
 </html>
+=======
+<<<<<<< HEAD
+</html>
+=======
+</html>
+>>>>>>> b808e6f (Avance Mauricio Benavente)
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7

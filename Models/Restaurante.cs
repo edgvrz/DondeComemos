@@ -1,11 +1,32 @@
+<<<<<<< HEAD
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+=======
+<<<<<<< HEAD
+=======
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+>>>>>>> b808e6f (Avance Mauricio Benavente)
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 namespace DondeComemos.Models
 {
     public class Restaurante
     {
         public int Id { get; set; }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        public string Nombre { get; set; } = string.Empty;
+        public string Direccion { get; set; } = string.Empty;
+        public string Descripcion { get; set; } = string.Empty;
+        public string ImagenUrl { get; set; } = string.Empty;
+        public int Rating { get; set; } = 0;
+    }
+}
+=======
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         
         [Required(ErrorMessage = "El nombre es obligatorio")]
         [Display(Name = "Nombre del Restaurante")]
@@ -15,12 +36,17 @@ namespace DondeComemos.Models
         [Display(Name = "Dirección")]
         public string Direccion { get; set; } = string.Empty;
         
+<<<<<<< HEAD
         [Display(Name = "URL de Google Maps")]
         public string? GoogleMapsUrl { get; set; }
         
         [Required(ErrorMessage = "La descripción es obligatoria")]
         [Display(Name = "Descripción")]
         [StringLength(1000)]
+=======
+        [Required(ErrorMessage = "La descripción es obligatoria")]
+        [Display(Name = "Descripción")]
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         public string Descripcion { get; set; } = string.Empty;
         
         [Display(Name = "URL de Imagen")]
@@ -29,6 +55,10 @@ namespace DondeComemos.Models
         [Required]
         [Range(0, 5, ErrorMessage = "El rating debe estar entre 0 y 5")]
         [Display(Name = "Calificación")]
+<<<<<<< HEAD
+=======
+        [Column(TypeName = "REAL")] 
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         public double Rating { get; set; }
         
         [Display(Name = "Teléfono")]
@@ -37,6 +67,7 @@ namespace DondeComemos.Models
         [Display(Name = "Horario")]
         public string? Horario { get; set; }
         
+<<<<<<< HEAD
         [Required(ErrorMessage = "El tipo de cocina es obligatorio")]
         [Display(Name = "Tipo de Cocina")]
         public string TipoCocina { get; set; } = "Peruana";
@@ -52,6 +83,19 @@ namespace DondeComemos.Models
         [Required(ErrorMessage = "El rango de precios es obligatorio")]
         [Display(Name = "Rango de Precios")]
         public string RangoPrecios { get; set; } = "Medio";
+=======
+        [Display(Name = "Tipo de Cocina")]
+        public string? TipoCocina { get; set; }
+        
+        [Display(Name = "Latitud")]
+        public double? Latitud { get; set; }
+        
+        [Display(Name = "Longitud")]
+        public double? Longitud { get; set; }
+        
+        [Display(Name = "Rango de Precios")]
+        public string? RangoPrecios { get; set; }
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         
         [Display(Name = "Sitio Web")]
         public string? SitioWeb { get; set; }
@@ -68,6 +112,7 @@ namespace DondeComemos.Models
         [Display(Name = "Destacado")]
         public bool Destacado { get; set; } = false;
         
+<<<<<<< HEAD
         [Display(Name = "Acepta Reservas")]
         public bool AceptaReservas { get; set; } = false;
         
@@ -92,6 +137,9 @@ namespace DondeComemos.Models
         [Display(Name = "Ambiente")]
         public string? Ambiente { get; set; }
         
+=======
+        // Navigation Properties
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
         public virtual ICollection<Resena> Resenas { get; set; } = new List<Resena>();
         
@@ -99,6 +147,7 @@ namespace DondeComemos.Models
         [Display(Name = "Subir Imagen")]
         public IFormFile? ImagenArchivo { get; set; }
         
+<<<<<<< HEAD
         [NotMapped]
         public double RatingPromedio => Resenas.Any()
             ? Resenas.Average(r => r.Calificacion)
@@ -108,3 +157,15 @@ namespace DondeComemos.Models
         public int TotalResenas => Resenas.Count;
     }
 }
+=======
+        // Propiedades calculadas
+        [NotMapped]
+            public double RatingPromedio => Resenas.Any()
+            ? (double)Resenas.Average(r => r.Calificacion)
+            : Rating;        
+        [NotMapped]
+        public int TotalResenas => Resenas.Count;
+    }
+}
+>>>>>>> b808e6f (Avance Mauricio Benavente)
+>>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
