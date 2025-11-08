@@ -28,7 +28,7 @@ namespace DondeComemos.Models
         [Required(ErrorMessage = "El mensaje es obligatorio")]
         public string? Mensaje { get; set; } = string.Empty;
         
-        [Required(ErrorMessage = "La satisfacción del 1-10 es obligatoria")]
+        [Required(ErrorMessage = "La puntuación de satisfacción es obligatoria")]
         public string? Satisfaccion { get; set; } = string.Empty;
         
         public bool InPositive { get; set; } = true;
