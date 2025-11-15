@@ -15,11 +15,7 @@ namespace DondeComemos.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-<<<<<<< HEAD
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.5");
-=======
             modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
->>>>>>> b808e6f (Avance Mauricio Benavente)
 
             modelBuilder.Entity("DondeComemos.Models.Contacto", b =>
                 {
@@ -54,8 +50,63 @@ namespace DondeComemos.Migrations
                     b.ToTable("Contactos");
                 });
 
-<<<<<<< HEAD
-=======
+            modelBuilder.Entity("DondeComemos.Models.DisponibilidadRestaurante", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CapacidadMaxima")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DiaSemana")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<TimeSpan>("HoraFin")
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeSpan>("HoraInicio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RestauranteId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RestauranteId");
+
+                    b.ToTable("DisponibilidadRestaurantes");
+                });
+
+            modelBuilder.Entity("DondeComemos.Models.Favorito", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("FechaAgregado")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RestauranteId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RestauranteId");
+
+                    b.HasIndex("UserId", "RestauranteId")
+                        .IsUnique();
+
+                    b.ToTable("Favoritos");
+                });
+
             modelBuilder.Entity("DondeComemos.Models.Notificacion", b =>
                 {
                     b.Property<int>("Id")
@@ -95,6 +146,55 @@ namespace DondeComemos.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Notificaciones");
+                });
+
+            modelBuilder.Entity("DondeComemos.Models.Pago", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("FechaCompletado")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MetodoPago")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Moneda")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Monto")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<int>("ReservaId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("StripePaymentIntentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StripeSessionId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReservaId");
+
+                    b.ToTable("Pagos");
                 });
 
             modelBuilder.Entity("DondeComemos.Models.Producto", b =>
@@ -172,17 +272,17 @@ namespace DondeComemos.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal?>("Ambiente")
-                        .HasColumnType("decimal(3,2)");
+                    b.Property<double?>("Ambiente")
+                        .HasColumnType("REAL");
 
                     b.Property<bool>("Aprobado")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal?>("CalidadComida")
-                        .HasColumnType("decimal(3,2)");
+                    b.Property<double?>("CalidadComida")
+                        .HasColumnType("REAL");
 
                     b.Property<double>("Calificacion")
-                        .HasColumnType("decimal(3,2)");
+                        .HasColumnType("REAL");
 
                     b.Property<string>("Comentario")
                         .IsRequired()
@@ -192,14 +292,14 @@ namespace DondeComemos.Migrations
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal?>("RelacionPrecio")
-                        .HasColumnType("decimal(3,2)");
+                    b.Property<double?>("RelacionPrecio")
+                        .HasColumnType("REAL");
 
                     b.Property<int>("RestauranteId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal?>("Servicio")
-                        .HasColumnType("decimal(3,2)");
+                    b.Property<double?>("Servicio")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("Titulo")
                         .IsRequired()
@@ -220,97 +320,38 @@ namespace DondeComemos.Migrations
                     b.ToTable("Resenas");
                 });
 
->>>>>>> b808e6f (Avance Mauricio Benavente)
-            modelBuilder.Entity("DondeComemos.Models.Restaurante", b =>
+            modelBuilder.Entity("DondeComemos.Models.Reserva", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Descripcion")
+                    b.Property<string>("CodigoReserva")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-<<<<<<< HEAD
-=======
-                    b.Property<bool>("Destacado")
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("FechaConfirmacion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("FechaReserva")
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeSpan>("HoraReserva")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NotasEspeciales")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("NumeroPersonas")
                         .HasColumnType("INTEGER");
-
->>>>>>> b808e6f (Avance Mauricio Benavente)
-                    b.Property<string>("Direccion")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-<<<<<<< HEAD
-=======
-                    b.Property<string>("Facebook")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Horario")
-                        .HasColumnType("TEXT");
-
->>>>>>> b808e6f (Avance Mauricio Benavente)
-                    b.Property<string>("ImagenUrl")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-<<<<<<< HEAD
-=======
-                    b.Property<string>("Instagram")
-                        .HasColumnType("TEXT");
-
-                    b.Property<double?>("Latitud")
-                        .HasColumnType("REAL");
-
-                    b.Property<double?>("Longitud")
-                        .HasColumnType("REAL");
-
->>>>>>> b808e6f (Avance Mauricio Benavente)
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-<<<<<<< HEAD
-                    b.Property<int>("Rating")
-                        .HasColumnType("INTEGER");
-=======
-                    b.Property<string>("RangoPrecios")
-                        .HasColumnType("TEXT");
-
-                    b.Property<double>("Rating")
-                        .HasColumnType("decimal(3,2)");
-
-                    b.Property<string>("SitioWeb")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Telefono")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TipoCocina")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Twitter")
-                        .HasColumnType("TEXT");
->>>>>>> b808e6f (Avance Mauricio Benavente)
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Restaurantes");
-                });
-
-<<<<<<< HEAD
-            modelBuilder.Entity("DondeComemos.Models.Watchlist", b =>
-=======
-            modelBuilder.Entity("DondeComemos.Models.Sugerencia", b =>
->>>>>>> b808e6f (Avance Mauricio Benavente)
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-<<<<<<< HEAD
-                    b.Property<DateTime>("FechaAgregado")
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("RestauranteId")
                         .HasColumnType("INTEGER");
@@ -323,10 +364,135 @@ namespace DondeComemos.Migrations
 
                     b.HasIndex("RestauranteId");
 
-                    b.HasIndex("UserId");
+                    b.ToTable("Reservas");
+                });
 
-                    b.ToTable("Watchlists");
-=======
+            modelBuilder.Entity("DondeComemos.Models.ReservaProducto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NotasProducto")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ReservaId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductoId");
+
+                    b.HasIndex("ReservaId");
+
+                    b.ToTable("ReservaProductos");
+                });
+
+            modelBuilder.Entity("DondeComemos.Models.Restaurante", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("AccesibleDiscapacitados")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("AceptaReservas")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Ambiente")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("DeliveryDisponible")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Destacado")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Direccion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Facebook")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GoogleMapsUrl")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Horario")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ImagenUrl")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Instagram")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double?>("Latitud")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("Longitud")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("OpcionesVeganas")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("OpcionesVegetarianas")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RangoPrecios")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Rating")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("SitioWeb")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TieneEstacionamiento")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TipoCocina")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Twitter")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("WifiGratis")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Restaurantes");
+                });
+
+            modelBuilder.Entity("DondeComemos.Models.Sugerencia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("Aprobado")
                         .HasColumnType("INTEGER");
 
@@ -408,7 +574,6 @@ namespace DondeComemos.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("UserProfiles");
->>>>>>> b808e6f (Avance Mauricio Benavente)
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -550,9 +715,11 @@ namespace DondeComemos.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
@@ -590,9 +757,11 @@ namespace DondeComemos.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
@@ -603,26 +772,47 @@ namespace DondeComemos.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("DondeComemos.Models.Watchlist", b =>
+            modelBuilder.Entity("DondeComemos.Models.DisponibilidadRestaurante", b =>
                 {
                     b.HasOne("DondeComemos.Models.Restaurante", "Restaurante")
                         .WithMany()
-=======
-            modelBuilder.Entity("DondeComemos.Models.Producto", b =>
-                {
-                    b.HasOne("DondeComemos.Models.Restaurante", "Restaurante")
-                        .WithMany("Productos")
->>>>>>> b808e6f (Avance Mauricio Benavente)
                         .HasForeignKey("RestauranteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-<<<<<<< HEAD
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.Navigation("Restaurante");
+                });
+
+            modelBuilder.Entity("DondeComemos.Models.Favorito", b =>
+                {
+                    b.HasOne("DondeComemos.Models.Restaurante", "Restaurante")
                         .WithMany()
-                        .HasForeignKey("UserId")
-=======
+                        .HasForeignKey("RestauranteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurante");
+                });
+
+            modelBuilder.Entity("DondeComemos.Models.Pago", b =>
+                {
+                    b.HasOne("DondeComemos.Models.Reserva", "Reserva")
+                        .WithMany()
+                        .HasForeignKey("ReservaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Reserva");
+                });
+
+            modelBuilder.Entity("DondeComemos.Models.Producto", b =>
+                {
+                    b.HasOne("DondeComemos.Models.Restaurante", "Restaurante")
+                        .WithMany("Productos")
+                        .HasForeignKey("RestauranteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Restaurante");
                 });
 
@@ -631,16 +821,40 @@ namespace DondeComemos.Migrations
                     b.HasOne("DondeComemos.Models.Restaurante", "Restaurante")
                         .WithMany("Resenas")
                         .HasForeignKey("RestauranteId")
->>>>>>> b808e6f (Avance Mauricio Benavente)
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Restaurante");
-<<<<<<< HEAD
+                });
 
-                    b.Navigation("User");
-=======
->>>>>>> b808e6f (Avance Mauricio Benavente)
+            modelBuilder.Entity("DondeComemos.Models.Reserva", b =>
+                {
+                    b.HasOne("DondeComemos.Models.Restaurante", "Restaurante")
+                        .WithMany("Reservas")
+                        .HasForeignKey("RestauranteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurante");
+                });
+
+            modelBuilder.Entity("DondeComemos.Models.ReservaProducto", b =>
+                {
+                    b.HasOne("DondeComemos.Models.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DondeComemos.Models.Reserva", "Reserva")
+                        .WithMany("ProductosReservados")
+                        .HasForeignKey("ReservaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Producto");
+
+                    b.Navigation("Reserva");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -693,16 +907,20 @@ namespace DondeComemos.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
-<<<<<<< HEAD
-=======
+
+            modelBuilder.Entity("DondeComemos.Models.Reserva", b =>
+                {
+                    b.Navigation("ProductosReservados");
+                });
 
             modelBuilder.Entity("DondeComemos.Models.Restaurante", b =>
                 {
                     b.Navigation("Productos");
 
                     b.Navigation("Resenas");
+
+                    b.Navigation("Reservas");
                 });
->>>>>>> b808e6f (Avance Mauricio Benavente)
 #pragma warning restore 612, 618
         }
     }
