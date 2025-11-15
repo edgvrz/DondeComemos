@@ -18,11 +18,7 @@ namespace DondeComemos.Models
         public string Mensaje { get; set; } = string.Empty;
         
         [Required]
-<<<<<<< HEAD
         public string Tipo { get; set; } = "Info";
-=======
-        public string Tipo { get; set; } = "Info"; // Info, Success, Warning, Error
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         
         public string? Url { get; set; }
         

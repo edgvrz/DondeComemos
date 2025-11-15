@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mauri\\Downloads\\ProyectoProgramacion-feature-avance-3.1\\DondeComemos.csproj": {}
+    "D:\\Usmp6\\Programacion\\DondeComemos\\DondeComemos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mauri\\Downloads\\ProyectoProgramacion-feature-avance-3.1\\DondeComemos.csproj": {
+    "D:\\Usmp6\\Programacion\\DondeComemos\\DondeComemos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mauri\\Downloads\\ProyectoProgramacion-feature-avance-3.1\\DondeComemos.csproj",
+        "projectUniqueName": "D:\\Usmp6\\Programacion\\DondeComemos\\DondeComemos.csproj",
         "projectName": "DondeComemos",
-        "projectPath": "C:\\Users\\mauri\\Downloads\\ProyectoProgramacion-feature-avance-3.1\\DondeComemos.csproj",
-        "packagesPath": "C:\\Users\\mauri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mauri\\Downloads\\ProyectoProgramacion-feature-avance-3.1\\obj\\",
+        "projectPath": "D:\\Usmp6\\Programacion\\DondeComemos\\DondeComemos.csproj",
+        "packagesPath": "C:\\Users\\Home\\.nuget\\packages\\",
+        "outputPath": "D:\\Usmp6\\Programacion\\DondeComemos\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mauri\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Home\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -72,9 +72,25 @@
               "target": "Package",
               "version": "[8.0.5, )"
             },
+            "Microsoft.SemanticKernel": {
+              "target": "Package",
+              "version": "[1.67.1, )"
+            },
+            "Microsoft.SemanticKernel.Connectors.OpenAI": {
+              "target": "Package",
+              "version": "[1.67.1, )"
+            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[49.2.0, )"
             }
           },
           "imports": [
@@ -96,7 +112,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,12 +1,5 @@
 html {
   font-size: 14px;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-  scroll-behavior: smooth;
->>>>>>> b808e6f (Avance Mauricio Benavente)
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 }
 
 @media (min-width: 768px) {
@@ -15,24 +8,10 @@ html {
   }
 }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 body {
   margin-bottom: 60px;
 }
 
-<<<<<<< HEAD
 .hero {
     position: relative;
     min-height: 500px;
@@ -43,77 +22,10 @@ body {
     justify-content: center;
     color: white;
     text-align: center;
-=======
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
-
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
-=======
-body {
-  margin-bottom: 60px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-}
-
-.navbar {
-    padding: 1rem 0;
->>>>>>> b808e6f (Avance Mauricio Benavente)
-}
-
-.navbar .nav-link {
-    color: #111;
-    font-weight: 500;
-    border-radius: .75rem;
-    padding: .5rem .85rem;
-<<<<<<< HEAD
-}
-=======
-    transition: all 0.3s ease;
-}
-
-.navbar .nav-link:hover {
-    background: #f8f9fa;
-    color: #000;
-}
-
->>>>>>> b808e6f (Avance Mauricio Benavente)
-.navbar .nav-link.active {
-    background: #000;
-    color: #fff !important;
-}
-
-<<<<<<< HEAD
-=======
-.navbar-brand {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #000 !important;
-}
-
->>>>>>> b808e6f (Avance Mauricio Benavente)
-.hero {
-    position: relative;
-    min-height: 520px;
-    background: url("/img/pears.jpeg") center/cover no-repeat;
-<<<<<<< HEAD
-}
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,.35);
-}
-=======
-    display: flex;
-    align-items: center;
-    justify-content: center;
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 }
 
 .hero-overlay {
     position: absolute;
-<<<<<<< HEAD
     top: 0;
     left: 0;
     width: 100%;
@@ -142,61 +54,19 @@ body {
 
 .card {
     transition: transform 0.3s, box-shadow 0.3s;
-=======
-    inset: 0;
-    background: rgba(0,0,0,.5);
-}
-
->>>>>>> b808e6f (Avance Mauricio Benavente)
-.hero-content {
-    position: relative;
-    z-index: 1;
-    padding: 120px 0;
-<<<<<<< HEAD
-}
-
-footer { background: #fff; }
-=======
-    text-align: center;
-}
-
-.hero h1 {
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
-.card {
-    border: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 }
 
 .card:hover {
     transform: translateY(-5px);
-<<<<<<< HEAD
     box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
 .btn {
     transition: all 0.3s;
-=======
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
-}
-
-.card-img-top {
-    height: 200px;
-    object-fit: cover;
-}
-
-.btn {
-    border-radius: 0.5rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 }
 
 .btn:hover {
     transform: translateY(-2px);
-<<<<<<< HEAD
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
@@ -227,50 +97,10 @@ footer { background: #fff; }
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-=======
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.btn-primary {
-    background: #0d6efd;
-    border-color: #0d6efd;
-}
-
-.btn-primary:hover {
-    background: #0b5ed7;
-    border-color: #0a58ca;
-}
-
-.form-control:focus, 
-.form-select:focus {
-    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
-    border-color: #86b7fe;
-}
-
-.form-label {
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
-footer {
-    background: #f8f9fa;
-    margin-top: auto;
-}
-
-.restaurant-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.restaurant-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 }
 
 .badge {
     font-weight: 500;
-<<<<<<< HEAD
 }
 
 .alert {
@@ -283,104 +113,10 @@ footer a {
 
 footer a:hover {
     color: #0d6efd !important;
-=======
-    padding: 0.5em 0.75em;
-}
-
-.table {
-    margin-bottom: 0;
-}
-
-.table-hover tbody tr:hover {
-    background-color: rgba(0,0,0,0.025);
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.fade-in {
-    animation: fadeIn 0.5s ease-in;
-}
-
-.alert {
-    border: none;
-    border-radius: 0.5rem;
-}
-
-.alert-success {
-    background-color: #d1e7dd;
-    color: #0f5132;
-}
-
-.alert-danger {
-    background-color: #f8d7da;
-    color: #842029;
-}
-
-.alert-warning {
-    background-color: #fff3cd;
-    color: #664d03;
-}
-
-.alert-info {
-    background-color: #cff4fc;
-    color: #055160;
-}
-
-.dropdown-menu {
-    border: none;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
-    border-radius: 0.5rem;
-}
-
-.dropdown-item {
-    padding: 0.5rem 1rem;
-    transition: background-color 0.2s ease;
-}
-
-.dropdown-item:hover {
-    background-color: #f8f9fa;
-}
-
-.spinner-border {
-    width: 3rem;
-    height: 3rem;
-}
-
-.img-thumbnail {
-    border: 2px solid #dee2e6;
-    border-radius: 0.5rem;
-}
-
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 }
 
 @media (max-width: 768px) {
     .hero {
-<<<<<<< HEAD
         min-height: 300px;
     }
     
@@ -388,109 +124,3 @@ footer a:hover {
         font-size: 2rem !important;
     }
 }
-=======
-        min-height: 400px;
-    }
-    
-    .hero-content {
-        padding: 80px 0;
-    }
-    
-    .card-img-top {
-        height: 180px;
-    }
-}
-
-.text-truncate-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.text-truncate-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.shadow-hover:hover {
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-}
-
-.star-rating {
-    color: #ffc107;
-}
-
-.price-range {
-    color: #28a745;
-    font-weight: 600;
-}
-
-#map, #mapHome {
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.profile-img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border: 4px solid #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.nav-tabs {
-    border-bottom: 2px solid #dee2e6;
-}
-
-.nav-tabs .nav-link {
-    border: none;
-    color: #6c757d;
-    font-weight: 500;
-    padding: 0.75rem 1.25rem;
-}
-
-.nav-tabs .nav-link:hover {
-    border-color: transparent;
-    color: #0d6efd;
-}
-
-.nav-tabs .nav-link.active {
-    color: #0d6efd;
-    background-color: transparent;
-    border-bottom: 3px solid #0d6efd;
-}
-
-.list-group-item {
-    border: 1px solid rgba(0,0,0,.125);
-    transition: background-color 0.2s ease;
-}
-
-.list-group-item:hover {
-    background-color: #f8f9fa;
-}
-
-.loading {
-    opacity: 0.6;
-    pointer-events: none;
-}
-
-@keyframes successPulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.success-animation {
-    animation: successPulse 0.6s ease;
-}
->>>>>>> b808e6f (Avance Mauricio Benavente)
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7

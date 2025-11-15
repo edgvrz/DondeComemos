@@ -36,19 +36,9 @@ namespace DondeComemos.Models
         public string? Ciudad { get; set; }
         
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
-<<<<<<< HEAD
         public DateTime? UltimaActividad { get; set; }
         
         public string? HistorialBusquedas { get; set; }
-=======
-        
-        public DateTime? UltimaActividad { get; set; }
-        
-        // Historial de búsquedas (JSON)
-        public string? HistorialBusquedas { get; set; }
-        
-        // Restaurantes favoritos (JSON con IDs)
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         public string? RestaurantesFavoritos { get; set; }
         
         [NotMapped]

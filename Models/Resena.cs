@@ -26,42 +26,22 @@ namespace DondeComemos.Models
         [Required]
         [Range(0.5, 5.0, ErrorMessage = "La calificación debe estar entre 0.5 y 5")]
         [Display(Name = "Calificación")]
-<<<<<<< HEAD
-=======
-        [Column(TypeName = "decimal(3,2)")]
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         public double Calificacion { get; set; }
         
         [Display(Name = "Calidad de Comida")]
         [Range(0.5, 5.0)]
-<<<<<<< HEAD
-=======
-        [Column(TypeName = "decimal(3,2)")]
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         public decimal? CalidadComida { get; set; }
         
         [Display(Name = "Servicio")]
         [Range(0.5, 5.0)]
-<<<<<<< HEAD
-=======
-        [Column(TypeName = "decimal(3,2)")]
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         public decimal? Servicio { get; set; }
         
         [Display(Name = "Ambiente")]
         [Range(0.5, 5.0)]
-<<<<<<< HEAD
-=======
-        [Column(TypeName = "decimal(3,2)")]
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         public decimal? Ambiente { get; set; }
         
         [Display(Name = "Relación Calidad-Precio")]
         [Range(0.5, 5.0)]
-<<<<<<< HEAD
-=======
-        [Column(TypeName = "decimal(3,2)")]
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         public decimal? RelacionPrecio { get; set; }
         
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
@@ -72,10 +52,6 @@ namespace DondeComemos.Models
         [Display(Name = "Aprobado")]
         public bool Aprobado { get; set; } = true;
         
-<<<<<<< HEAD
-=======
-        // Navigation Properties
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         public virtual Restaurante? Restaurante { get; set; }
         
         [NotMapped]
