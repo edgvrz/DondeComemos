@@ -4,206 +4,451 @@
     ViewData["Title"] = "Editar Restaurante";
 }
 
-<div class="container py-4">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
-    <h2 class="fw-bold">✏️ Editar Restaurante</h2>
+<style>
+    .edit-hero {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        padding: 60px 0;
+        color: white;
+        margin-bottom: -30px;
+    }
+    .form-card {
+        border: none;
+        border-radius: 25px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+    .section-header {
+        background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+        border-left: 5px solid #ffc107;
+    }
+    .image-preview-container {
+        border: 3px dashed #e0e0e0;
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        transition: all 0.3s;
+    }
+    .image-preview-container:hover {
+        border-color: #f093fb;
+        background: #f8f9fa;
+    }
+    .preview-image {
+        max-width: 100%;
+        max-height: 400px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+    .current-image-box {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+    }
+</style>
 
-    <form asp-action="Edit">
-        <input type="hidden" asp-for="Id" />
-
-        <div class="mb-3">
-            <label asp-for="Nombre" class="form-label"></label>
-            <input asp-for="Nombre" class="form-control" />
-        </div>
-
-        <div class="mb-3">
-            <label asp-for="Direccion" class="form-label"></label>
-            <input asp-for="Direccion" class="form-control" />
-        </div>
-
-        <div class="mb-3">
-            <label asp-for="Descripcion" class="form-label"></label>
-            <textarea asp-for="Descripcion" class="form-control"></textarea>
-        </div>
-
-        <div class="mb-3">
-            <label asp-for="ImagenUrl" class="form-label"></label>
-            <input asp-for="ImagenUrl" class="form-control" />
-        </div>
-
-        <div class="mb-3">
-            <label asp-for="Rating" class="form-label"></label>
-            <input asp-for="Rating" class="form-control" type="number" min="0" max="5" />
-        </div>
-
-        <button type="submit" class="btn btn-primary">Guardar cambios</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-    </form>
+<div class="edit-hero">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-2">
+            <i class="bi bi-pencil-square"></i> Editar Restaurante
+        </h1>
+        <p class="lead opacity-75">Actualiza la información de <strong>@Model.Nombre</strong></p>
+    </div>
 </div>
-<<<<<<< HEAD
-=======
-=======
+
+<div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <div class="card shadow-sm">
-                <div class="card-header bg-warning">
-                    <h2 class="mb-0">✏️ Editar Restaurante</h2>
-                </div>
-                <div class="card-body">
-                    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div class="col-lg-11">
+            <div class="card form-card">
+                <div class="card-body p-5">
+                    <form asp-action="Edit" method="post" enctype="multipart/form-data" id="editForm">
                         <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="ImagenUrl" />
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
-                        <div class="row">
+                        <!-- Información Básica -->
+                        <div class="section-header">
+                            <h4 class="mb-0 fw-bold">
+                                <i class="bi bi-info-circle text-warning"></i> Información Básica
+                            </h4>
+                        </div>
+
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-8">
+                                <label asp-for="Nombre" class="form-label fw-bold">
+                                    <i class="bi bi-shop"></i> Nombre del Restaurante *
+                                </label>
+                                <input asp-for="Nombre" class="form-control form-control-lg" />
+                                <span asp-validation-for="Nombre" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="Telefono" class="form-label fw-bold">
+                                    <i class="bi bi-telephone"></i> Teléfono
+                                </label>
+                                <input asp-for="Telefono" class="form-control form-control-lg" />
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="Descripcion" class="form-label fw-bold">
+                                    <i class="bi bi-card-text"></i> Descripción *
+                                </label>
+                                <textarea asp-for="Descripcion" class="form-control" rows="4"></textarea>
+                                <span asp-validation-for="Descripcion" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <!-- Ubicación -->
+                        <div class="section-header">
+                            <h4 class="mb-0 fw-bold">
+                                <i class="bi bi-geo-alt text-danger"></i> Ubicación
+                            </h4>
+                        </div>
+
+                        <div class="row g-4 mb-5">
+                            <div class="col-12">
+                                <label asp-for="Direccion" class="form-label fw-bold">
+                                    <i class="bi bi-pin-map"></i> Dirección Completa *
+                                </label>
+                                <input asp-for="Direccion" class="form-control form-control-lg" />
+                                <span asp-validation-for="Direccion" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="GoogleMapsUrl" class="form-label fw-bold">
+                                    <i class="bi bi-map"></i> URL de Google Maps
+                                </label>
+                                <input asp-for="GoogleMapsUrl" class="form-control" />
+                            </div>
+
                             <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label asp-for="Nombre" class="form-label fw-bold"></label>
-                                    <input asp-for="Nombre" class="form-control" />
-                                    <span asp-validation-for="Nombre" class="text-danger small"></span>
-                                </div>
+                                <label asp-for="Latitud" class="form-label fw-bold">
+                                    <i class="bi bi-compass"></i> Latitud
+                                </label>
+                                <input asp-for="Latitud" class="form-control" type="number" step="0.000001" />
                             </div>
 
                             <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label asp-for="TipoCocina" class="form-label fw-bold"></label>
-                                    <select asp-for="TipoCocina" class="form-select">
-                                        <option value="">Seleccionar...</option>
-                                        <option value="Peruana">Peruana</option>
-                                        <option value="Italiana">Italiana</option>
-                                        <option value="China">China</option>
-                                        <option value="Japonesa">Japonesa</option>
-                                        <option value="Mexicana">Mexicana</option>
-                                        <option value="Criolla">Criolla</option>
-                                        <option value="Marina">Marina</option>
-                                        <option value="Vegetariana">Vegetariana</option>
-                                        <option value="Internacional">Internacional</option>
-                                    </select>
+                                <label asp-for="Longitud" class="form-label fw-bold">
+                                    <i class="bi bi-compass"></i> Longitud
+                                </label>
+                                <input asp-for="Longitud" class="form-control" type="number" step="0.000001" />
+                            </div>
+                        </div>
+
+                        <!-- Categoría y Precios -->
+                        <div class="section-header">
+                            <h4 class="mb-0 fw-bold">
+                                <i class="bi bi-tags text-success"></i> Categoría y Precios
+                            </h4>
+                        </div>
+
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-6">
+                                <label asp-for="TipoCocina" class="form-label fw-bold">
+                                    <i class="bi bi-egg-fried"></i> Tipo de Cocina *
+                                </label>
+                                <select asp-for="TipoCocina" class="form-select form-select-lg">
+                                    <option value="Peruana">🇵🇪 Peruana</option>
+                                    <option value="Criolla">Criolla</option>
+                                    <option value="Italiana">🇮🇹 Italiana</option>
+                                    <option value="China">🇨🇳 China</option>
+                                    <option value="Japonesa">🇯🇵 Japonesa</option>
+                                    <option value="Mexicana">🇲🇽 Mexicana</option>
+                                    <option value="Fast Food">🍔 Comida Rápida</option>
+                                    <option value="Carnes y Parrillas">🥩 Carnes y Parrillas</option>
+                                    <option value="Mariscos">🦞 Mariscos</option>
+                                    <option value="Pizzería">🍕 Pizzería</option>
+                                    <option value="Hamburguesas">🍔 Hamburguesas</option>
+                                    <option value="Vegetariana">🥗 Vegetariana</option>
+                                    <option value="Fusión">Fusión</option>
+                                    <option value="Internacional">Internacional</option>
+                                    <option value="Postres y Cafetería">🍰 Postres y Cafetería</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="RangoPrecios" class="form-label fw-bold">
+                                    <i class="bi bi-cash-stack"></i> Rango de Precios *
+                                </label>
+                                <select asp-for="RangoPrecios" class="form-select form-select-lg">
+                                    <option value="Económico">💰 Económico (S/ 10-20)</option>
+                                    <option value="Medio">💰💰 Medio (S/ 20-40)</option>
+                                    <option value="Alto">💰💰💰 Alto (S/ 40-80)</option>
+                                    <option value="Premium">💰💰💰💰 Premium (S/ 80+)</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Ambiente" class="form-label fw-bold">
+                                    <i class="bi bi-palette"></i> Ambiente
+                                </label>
+                                <select asp-for="Ambiente" class="form-select form-select-lg">
+                                    <option value="">Seleccionar...</option>
+                                    <option value="Casual">😊 Casual</option>
+                                    <option value="Familiar">👨‍👩‍👧‍👦 Familiar</option>
+                                    <option value="Romántico">❤️ Romántico</option>
+                                    <option value="Elegante">🎩 Elegante</option>
+                                    <option value="Juvenil">🎉 Juvenil</option>
+                                    <option value="Tradicional">🏛️ Tradicional</option>
+                                    <option value="Moderno">✨ Moderno</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Horario" class="form-label fw-bold">
+                                    <i class="bi bi-clock"></i> Horario de Atención
+                                </label>
+                                <input asp-for="Horario" class="form-control form-control-lg" />
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="Rating" class="form-label fw-bold">
+                                    <i class="bi bi-star-fill text-warning"></i> Calificación
+                                </label>
+                                <div class="d-flex align-items-center gap-3">
+                                    <input asp-for="Rating" class="form-range" type="range" 
+                                           min="0" max="5" step="0.5"
+                                           oninput="document.getElementById('ratingDisplay').textContent = this.value" />
+                                    <span class="badge bg-warning text-dark fs-5" id="ratingDisplay">@Model.Rating</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label asp-for="Direccion" class="form-label fw-bold"></label>
-                            <input asp-for="Direccion" class="form-control" id="direccionInput" />
-                            <span asp-validation-for="Direccion" class="text-danger small"></span>
+                        <!-- Imagen del Restaurante -->
+                        <div class="section-header">
+                            <h4 class="mb-0 fw-bold">
+                                <i class="bi bi-image text-warning"></i> Imagen del Restaurante
+                            </h4>
                         </div>
 
-                        <div class="mb-3">
-                            <label asp-for="Descripcion" class="form-label fw-bold"></label>
-                            <textarea asp-for="Descripcion" class="form-control" rows="4"></textarea>
-                            <span asp-validation-for="Descripcion" class="text-danger small"></span>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label asp-for="Rating" class="form-label fw-bold"></label>
-                                    <input asp-for="Rating" class="form-control" type="number" min="0" max="5" />
-                                    <span asp-validation-for="Rating" class="text-danger small"></span>
+                        <div class="row g-4 mb-5">
+                            @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+                            {
+                                <div class="col-12">
+                                    <div class="current-image-box">
+                                        <p class="fw-bold mb-3">
+                                            <i class="bi bi-check-circle text-success"></i> Imagen Actual
+                                        </p>
+                                        <img src="@Model.ImagenUrl" alt="@Model.Nombre" 
+                                             class="preview-image mb-3" />
+                                        <p class="text-muted small mb-0">
+                                            <i class="bi bi-info-circle"></i> 
+                                            Sube una nueva imagen para reemplazar la actual
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
+                            }
 
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label asp-for="Telefono" class="form-label fw-bold"></label>
-                                    <input asp-for="Telefono" class="form-control" />
-                                </div>
-                            </div>
+                            <div class="col-12">
+                                <ul class="nav nav-pills mb-4" id="imageTabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="upload-tab" data-bs-toggle="pill" 
+                                                data-bs-target="#upload" type="button" role="tab">
+                                            <i class="bi bi-upload"></i> Subir Nueva Imagen
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="url-tab" data-bs-toggle="pill" 
+                                                data-bs-target="#url" type="button" role="tab">
+                                            <i class="bi bi-link-45deg"></i> URL de Imagen
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="keep-tab" data-bs-toggle="pill" 
+                                                data-bs-target="#keep" type="button" role="tab">
+                                            <i class="bi bi-check-circle"></i> Mantener Actual
+                                        </button>
+                                    </li>
+                                </ul>
 
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label asp-for="RangoPrecios" class="form-label fw-bold"></label>
-                                    <select asp-for="RangoPrecios" class="form-select">
-                                        <option value="">Seleccionar...</option>
-                                        <option value="$">$ - Económico</option>
-                                        <option value="$$">$$ - Moderado</option>
-                                        <option value="$$$">$$$ - Caro</option>
-                                        <option value="$$$$">$$$$ - Premium</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Horario" class="form-label fw-bold"></label>
-                            <input asp-for="Horario" class="form-control" />
-                        </div>
-
-                        <!-- Ubicación con Google Maps -->
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">
-                                <i class="bi bi-geo-alt"></i> Ubicación en el Mapa
-                            </label>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <label asp-for="Latitud" class="form-label">Latitud</label>
-                                            <input asp-for="Latitud" class="form-control" id="latitud" readonly />
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label asp-for="Longitud" class="form-label">Longitud</label>
-                                            <input asp-for="Longitud" class="form-control" id="longitud" readonly />
+                                <div class="tab-content" id="imageTabContent">
+                                    <div class="tab-pane fade show active" id="upload" role="tabpanel">
+                                        <div class="image-preview-container">
+                                            <i class="bi bi-cloud-arrow-up display-1 text-primary mb-3"></i>
+                                            <h5>Selecciona una nueva imagen</h5>
+                                            <input asp-for="ImagenArchivo" class="form-control mt-3" 
+                                                   type="file" accept="image/*" onchange="previewImage(event)" />
+                                            <small class="text-muted d-block mt-2">
+                                                Formatos: JPG, PNG, GIF, WebP. Tamaño máximo: 5MB
+                                            </small>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-info btn-sm mb-2" onclick="buscarEnMapa()">
-                                        <i class="bi bi-search"></i> Buscar dirección en el mapa
-                                    </button>
-                                    <button type="button" class="btn btn-success btn-sm mb-2" onclick="obtenerUbicacionActual()">
-                                        <i class="bi bi-geo"></i> Usar mi ubicación actual
-                                    </button>
-                                    <div id="map" style="height: 350px; width: 100%;"></div>
-                                    <small class="text-muted d-block mt-2">
-                                        <i class="bi bi-info-circle"></i> Haz clic en el mapa para establecer la ubicación exacta
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Imagen -->
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Imagen del Restaurante</label>
-                            <div class="card">
-                                <div class="card-body">
-                                    @if (!string.IsNullOrEmpty(Model.ImagenUrl))
-                                    {
-                                        <div class="mb-3">
-                                            <p class="small text-muted">Imagen actual:</p>
-                                            <img src="@Model.ImagenUrl" class="img-thumbnail" style="max-height: 150px;" />
-                                        </div>
-                                    }
-
-                                    <div class="mb-3">
-                                        <label asp-for="ImagenArchivo" class="form-label">
-                                            <i class="bi bi-upload"></i> Cambiar imagen
-                                        </label>
-                                        <input asp-for="ImagenArchivo" type="file" class="form-control" 
-                                               accept="image/*" id="imagenArchivo" onchange="previewImage(event)" />
-                                        <span asp-validation-for="ImagenArchivo" class="text-danger small"></span>
-                                        <small class="text-muted d-block mt-1">
-                                            Formatos: JPG, PNG, GIF, WEBP (Máx. 5MB)
+                                    <div class="tab-pane fade" id="url" role="tabpanel">
+                                        <input asp-for="ImagenUrlExterna" class="form-control form-control-lg" 
+                                               placeholder="https://ejemplo.com/imagen.jpg"
+                                               onchange="previewUrlImage(this.value)" />
+                                        <small class="text-muted d-block mt-2">
+                                            Pega la URL directa de una imagen desde internet
                                         </small>
                                     </div>
 
-                                    <div id="imagePreview" class="text-center" style="display:none;">
-                                        <p class="text-muted small">Nueva imagen:</p>
-                                        <img id="preview" src="" class="img-fluid rounded" 
-                                             style="max-height: 200px; object-fit: cover;" />
+                                    <div class="tab-pane fade" id="keep" role="tabpanel">
+                                        <div class="alert alert-info">
+                                            <i class="bi bi-info-circle"></i>
+                                            <strong>Mantener imagen actual:</strong> 
+                                            No se realizarán cambios en la imagen del restaurante.
+                                        </div>
                                     </div>
+                                </div>
+
+                                <div id="imagePreview" class="mt-4 text-center d-none">
+                                    <p class="fw-bold mb-3">
+                                        <i class="bi bi-eye"></i> Nueva Vista Previa:
+                                    </p>
+                                    <img id="preview" src="" alt="Preview" class="preview-image" />
                                 </div>
                             </div>
                         </div>
 
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                            <a asp-action="Index" class="btn btn-secondary">
-                                <i class="bi bi-x-circle"></i> Cancelar
-                            </a>
-                            <button type="submit" class="btn btn-success">
-                                <i class="bi bi-check-circle"></i> Guardar Cambios
-                            </button>
+                        <!-- Servicios y Facilidades -->
+                        <div class="section-header">
+                            <h4 class="mb-0 fw-bold">
+                                <i class="bi bi-gear text-info"></i> Servicios y Facilidades
+                            </h4>
+                        </div>
+
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input asp-for="DeliveryDisponible" class="form-check-input" 
+                                           type="checkbox" style="width: 3em; height: 1.5em;" />
+                                    <label asp-for="DeliveryDisponible" class="form-check-label fw-bold ms-2">
+                                        <i class="bi bi-truck text-success"></i> Delivery Disponible
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input asp-for="AceptaReservas" class="form-check-input" 
+                                           type="checkbox" style="width: 3em; height: 1.5em;" />
+                                    <label asp-for="AceptaReservas" class="form-check-label fw-bold ms-2">
+                                        <i class="bi bi-calendar-check text-primary"></i> Acepta Reservas
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input asp-for="TieneEstacionamiento" class="form-check-input" 
+                                           type="checkbox" style="width: 3em; height: 1.5em;" />
+                                    <label asp-for="TieneEstacionamiento" class="form-check-label fw-bold ms-2">
+                                        <i class="bi bi-car-front text-info"></i> Estacionamiento
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input asp-for="WifiGratis" class="form-check-input" 
+                                           type="checkbox" style="width: 3em; height: 1.5em;" />
+                                    <label asp-for="WifiGratis" class="form-check-label fw-bold ms-2">
+                                        <i class="bi bi-wifi text-primary"></i> WiFi Gratis
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input asp-for="AccesibleDiscapacitados" class="form-check-input" 
+                                           type="checkbox" style="width: 3em; height: 1.5em;" />
+                                    <label asp-for="AccesibleDiscapacitados" class="form-check-label fw-bold ms-2">
+                                        <i class="bi bi-universal-access text-success"></i> Accesible
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input asp-for="OpcionesVegetarianas" class="form-check-input" 
+                                           type="checkbox" style="width: 3em; height: 1.5em;" />
+                                    <label asp-for="OpcionesVegetarianas" class="form-check-label fw-bold ms-2">
+                                        <i class="bi bi-leaf text-success"></i> Opciones Vegetarianas
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input asp-for="OpcionesVeganas" class="form-check-input" 
+                                           type="checkbox" style="width: 3em; height: 1.5em;" />
+                                    <label asp-for="OpcionesVeganas" class="form-check-label fw-bold ms-2">
+                                        <i class="bi bi-flower1 text-success"></i> Opciones Veganas
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-check form-switch">
+                                    <input asp-for="Destacado" class="form-check-input" 
+                                           type="checkbox" style="width: 3em; height: 1.5em;" />
+                                    <label asp-for="Destacado" class="form-check-label fw-bold ms-2">
+                                        <i class="bi bi-star text-warning"></i> Restaurante Destacado
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Redes Sociales -->
+                        <div class="section-header">
+                            <h4 class="mb-0 fw-bold">
+                                <i class="bi bi-share text-primary"></i> Redes Sociales
+                            </h4>
+                        </div>
+
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-6">
+                                <label asp-for="SitioWeb" class="form-label fw-bold">
+                                    <i class="bi bi-globe"></i> Sitio Web
+                                </label>
+                                <input asp-for="SitioWeb" class="form-control form-control-lg" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Facebook" class="form-label fw-bold">
+                                    <i class="bi bi-facebook text-primary"></i> Facebook
+                                </label>
+                                <input asp-for="Facebook" class="form-control form-control-lg" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Instagram" class="form-label fw-bold">
+                                    <i class="bi bi-instagram text-danger"></i> Instagram
+                                </label>
+                                <input asp-for="Instagram" class="form-control form-control-lg" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Twitter" class="form-label fw-bold">
+                                    <i class="bi bi-twitter text-info"></i> Twitter
+                                </label>
+                                <input asp-for="Twitter" class="form-control form-control-lg" />
+                            </div>
+                        </div>
+
+                        <!-- Botones de Acción -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="alert alert-warning" role="alert">
+                                    <i class="bi bi-exclamation-triangle"></i>
+                                    <strong>Nota:</strong> Los cambios afectarán toda la información del restaurante, 
+                                    incluyendo productos y reseñas asociadas.
+                                </div>
+
+                                <div class="d-grid gap-3 d-md-flex justify-content-md-end">
+                                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-5">
+                                        <i class="bi bi-x-circle"></i> Cancelar
+                                    </a>
+                                    <button type="submit" class="btn btn-warning btn-lg px-5"
+                                            style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); border: none; color: white;">
+                                        <i class="bi bi-check-circle-fill"></i> Actualizar Restaurante
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -214,102 +459,53 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY_AQUI&libraries=places"></script>
     <script>
-        let map;
-        let marker;
-        let geocoder;
-
-        function initMap() {
-            const latActual = parseFloat(document.getElementById("latitud").value) || -16.409047;
-            const lngActual = parseFloat(document.getElementById("longitud").value) || -71.537451;
-            const posicion = { lat: latActual, lng: lngActual };
-            
-            map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 15,
-                center: posicion,
-            });
-
-            geocoder = new google.maps.Geocoder();
-
-            marker = new google.maps.Marker({
-                map: map,
-                position: posicion,
-                draggable: true,
-                visible: (latActual !== -16.409047 || lngActual !== -71.537451)
-            });
-
-            map.addListener("click", (e) => {
-                colocarMarcador(e.latLng);
-            });
-
-            marker.addListener("dragend", (e) => {
-                actualizarCoordenadas(e.latLng);
-            });
-        }
-
-        function colocarMarcador(location) {
-            marker.setPosition(location);
-            marker.setVisible(true);
-            actualizarCoordenadas(location);
-        }
-
-        function actualizarCoordenadas(location) {
-            document.getElementById("latitud").value = location.lat().toFixed(6);
-            document.getElementById("longitud").value = location.lng().toFixed(6);
-        }
-
-        function buscarEnMapa() {
-            const direccion = document.getElementById("direccionInput").value;
-            if (!direccion) {
-                alert("Por favor, ingresa una dirección primero");
-                return;
-            }
-
-            geocoder.geocode({ address: direccion + ", Arequipa, Perú" }, (results, status) => {
-                if (status === "OK") {
-                    map.setCenter(results[0].geometry.location);
-                    colocarMarcador(results[0].geometry.location);
-                } else {
-                    alert("No se pudo encontrar la dirección: " + status);
-                }
-            });
-        }
-
-        function obtenerUbicacionActual() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const pos = {
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude,
-                        };
-                        map.setCenter(pos);
-                        colocarMarcador(new google.maps.LatLng(pos.lat, pos.lng));
-                    },
-                    () => {
-                        alert("No se pudo obtener tu ubicación");
-                    }
-                );
-            } else {
-                alert("Tu navegador no soporta geolocalización");
-            }
-        }
+        // Inicializar el valor del rating display
+        document.getElementById('ratingDisplay').textContent = @Model.Rating.ToString("0.0");
 
         function previewImage(event) {
+            const preview = document.getElementById('preview');
+            const previewDiv = document.getElementById('imagePreview');
             const file = event.target.files[0];
+            
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('preview').src = e.target.result;
-                    document.getElementById('imagePreview').style.display = 'block';
+                    preview.src = e.target.result;
+                    previewDiv.classList.remove('d-none');
                 }
                 reader.readAsDataURL(file);
             }
         }
 
-        window.onload = initMap;
+        function previewUrlImage(url) {
+            const preview = document.getElementById('preview');
+            const previewDiv = document.getElementById('imagePreview');
+            
+            if (url) {
+                preview.src = url;
+                previewDiv.classList.remove('d-none');
+                
+                preview.onerror = function() {
+                    alert('No se pudo cargar la imagen desde la URL proporcionada.');
+                    previewDiv.classList.add('d-none');
+                };
+            } else {
+                previewDiv.classList.add('d-none');
+            }
+        }
+
+        // Limpiar vista previa al cambiar de tab
+        document.querySelectorAll('[data-bs-toggle="pill"]').forEach(tab => {
+            tab.addEventListener('shown.bs.tab', function(e) {
+                const previewDiv = document.getElementById('imagePreview');
+                const preview = document.getElementById('preview');
+                
+                if (e.target.id === 'keep-tab') {
+                    previewDiv.classList.add('d-none');
+                    preview.src = '';
+                }
+            });
+        });
     </script>
 }
->>>>>>> b808e6f (Avance Mauricio Benavente)
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7

@@ -18,10 +18,6 @@ namespace DondeComemos.Controllers
             _fileService = fileService;
         }
 
-<<<<<<< HEAD
-=======
-        // Ver menú de un restaurante
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         [AllowAnonymous]
         public async Task<IActionResult> Menu(int restauranteId)
         {
@@ -36,10 +32,6 @@ namespace DondeComemos.Controllers
             return View(restaurante.Productos.Where(p => p.Disponible).ToList());
         }
 
-<<<<<<< HEAD
-=======
-        // CRUD para administradores
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index(int restauranteId)
         {
@@ -72,10 +64,6 @@ namespace DondeComemos.Controllers
         {
             if (ModelState.IsValid)
             {
-<<<<<<< HEAD
-=======
-                // Manejar imagen: archivo subido o URL externa
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                 if (producto.ImagenArchivo != null)
                 {
                     try
@@ -92,10 +80,6 @@ namespace DondeComemos.Controllers
                 }
                 else if (!string.IsNullOrEmpty(producto.ImagenUrlExterna))
                 {
-<<<<<<< HEAD
-=======
-                    // Usar URL externa
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                     producto.ImagenUrl = producto.ImagenUrlExterna;
                 }
 
@@ -132,18 +116,10 @@ namespace DondeComemos.Controllers
                 var productoExistente = await _context.Productos.AsNoTracking()
                     .FirstOrDefaultAsync(p => p.Id == id);
 
-<<<<<<< HEAD
-=======
-                // Manejar imagen
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                 if (producto.ImagenArchivo != null)
                 {
                     try
                     {
-<<<<<<< HEAD
-=======
-                        // Eliminar imagen anterior si existe y no es URL externa
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                         if (!string.IsNullOrEmpty(productoExistente?.ImagenUrl) && 
                             !productoExistente.ImagenUrl.StartsWith("http"))
                         {
@@ -161,10 +137,6 @@ namespace DondeComemos.Controllers
                 }
                 else if (!string.IsNullOrEmpty(producto.ImagenUrlExterna))
                 {
-<<<<<<< HEAD
-=======
-                    // Usar URL externa
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                     if (!string.IsNullOrEmpty(productoExistente?.ImagenUrl) && 
                         !productoExistente.ImagenUrl.StartsWith("http"))
                     {
@@ -174,10 +146,6 @@ namespace DondeComemos.Controllers
                 }
                 else
                 {
-<<<<<<< HEAD
-=======
-                    // Mantener imagen existente
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                     producto.ImagenUrl = productoExistente?.ImagenUrl ?? string.Empty;
                 }
 
@@ -211,10 +179,6 @@ namespace DondeComemos.Controllers
             var producto = await _context.Productos.FindAsync(id);
             if (producto != null)
             {
-<<<<<<< HEAD
-=======
-                // Eliminar imagen si no es URL externa
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                 if (!string.IsNullOrEmpty(producto.ImagenUrl) && 
                     !producto.ImagenUrl.StartsWith("http"))
                 {

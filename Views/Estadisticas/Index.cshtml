@@ -1,741 +1,518 @@
-<<<<<<< HEAD
-@using DondeComemos.Controllers
-
-@model EstadisticasViewModel
-
 @{
-    ViewData["Title"] = "Dashboard - Estadísticas";
+    ViewData["Title"] = "Demo Semantic Kernel";
 }
 
 <style>
-    .stats-hero {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 60px 0 40px;
-        color: white;
-        margin-bottom: -30px;
+    .demo-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
     }
-    .stat-card {
+    .demo-section {
         background: white;
         border-radius: 20px;
         padding: 30px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        transition: transform 0.3s, box-shadow 0.3s;
-        border: none;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .capability-card {
+        border: 2px solid #e0e0e0;
+        border-radius: 15px;
+        padding: 20px;
+        transition: all 0.3s;
+        cursor: pointer;
         height: 100%;
     }
-    .stat-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    .capability-card:hover {
+        border-color: #667eea;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
     }
-    .stat-icon {
-        width: 70px;
-        height: 70px;
+    .test-query {
+        background: #f8f9fa;
+        border-left: 4px solid #667eea;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 0 10px 10px 0;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .test-query:hover {
+        background: #e9ecef;
+        transform: translateX(5px);
+    }
+    .response-area {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 20px;
+        min-height: 200px;
+        white-space: pre-wrap;
+        font-family: 'Courier New', monospace;
+        max-height: 500px;
+        overflow-y: auto;
+    }
+    .plugin-badge {
+        display: inline-block;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+    .loading-spinner {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #667eea;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+    }
+    @@keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    .capability-icon {
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 2rem;
-        margin-bottom: 15px;
-    }
-    .chart-card {
-        background: white;
-        border-radius: 20px;
-        padding: 30px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        margin-bottom: 30px;
-    }
-    .restaurant-mini-card {
-        display: flex;
-        align-items: center;
-        padding: 15px;
-        background: white;
-        border-radius: 15px;
-        margin-bottom: 10px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        transition: all 0.3s;
-    }
-    .restaurant-mini-card:hover {
-        transform: translateX(10px);
-        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    }
-    .restaurant-mini-img {
-        width: 60px;
-        height: 60px;
-        border-radius: 10px;
-        object-fit: cover;
-        margin-right: 15px;
-    }
-    .progress-modern {
-        height: 10px;
-        border-radius: 10px;
-        overflow: hidden;
-        background: #f0f0f0;
-    }
-    .progress-bar-gradient {
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        margin: 0 auto 15px;
     }
 </style>
 
-<!-- Hero -->
-<div class="stats-hero">
-    <div class="container">
-        <div class="text-center">
-            <h1 class="display-4 fw-bold mb-2">
-                <i class="bi bi-bar-chart-fill"></i> Dashboard de Estadísticas
-            </h1>
-            <p class="lead">Panel de control y métricas del sistema</p>
-        </div>
-    </div>
-</div>
-
-<div class="container pb-5" style="position: relative; z-index: 1;">
-    <!-- Tarjetas de Estadísticas Principales -->
-    <div class="row g-4 mb-4">
-        <div class="col-md-6 col-lg-3">
-            <div class="stat-card">
-                <div class="stat-icon bg-primary bg-opacity-10 text-primary">
-                    <i class="bi bi-shop"></i>
-                </div>
-                <h3 class="fw-bold mb-1">@Model.TotalRestaurantes</h3>
-                <p class="text-muted mb-0">Restaurantes</p>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-            <div class="stat-card">
-                <div class="stat-icon bg-success bg-opacity-10 text-success">
-                    <i class="bi bi-menu-button-wide"></i>
-                </div>
-                <h3 class="fw-bold mb-1">@Model.TotalProductos</h3>
-                <p class="text-muted mb-0">Productos en Menú</p>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-            <div class="stat-card">
-                <div class="stat-icon bg-warning bg-opacity-10 text-warning">
-                    <i class="bi bi-chat-dots-fill"></i>
-                </div>
-                <h3 class="fw-bold mb-1">@Model.TotalResenas</h3>
-                <p class="text-muted mb-0">Reseñas</p>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-            <div class="stat-card">
-                <div class="stat-icon bg-info bg-opacity-10 text-info">
-                    <i class="bi bi-people-fill"></i>
-                </div>
-                <h3 class="fw-bold mb-1">@Model.TotalUsuarios</h3>
-                <p class="text-muted mb-0">Usuarios Registrados</p>
-=======
-@model dynamic
-
-@{
-    ViewData["Title"] = "Panel de Estadísticas";
-}
-
-<div class="container-fluid py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="fw-bold">
-            <i class="bi bi-graph-up text-primary"></i> Panel de Estadísticas
+<div class="demo-container">
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">
+            <i class="bi bi-robot text-primary"></i> Demo Semantic Kernel + LLM
         </h1>
-        <div>
-            <button class="btn btn-primary" onclick="window.print()">
-                <i class="bi bi-printer"></i> Imprimir
+        <p class="lead text-muted">
+            Prueba las capacidades avanzadas de IA con Semantic Kernel
+        </p>
+        <div class="mt-3">
+            <span class="plugin-badge bg-primary text-white">
+                <i class="bi bi-shop"></i> RestaurantPlugin
+            </span>
+            <span class="plugin-badge bg-success text-white">
+                <i class="bi bi-calendar-check"></i> ReservationPlugin
+            </span>
+            <span class="plugin-badge bg-warning text-dark">
+                <i class="bi bi-menu-button-wide"></i> MenuPlugin
+            </span>
+        </div>
+    </div>
+
+    <!-- Capacidades del Sistema -->
+    <div class="demo-section">
+        <h3 class="fw-bold mb-4">
+            <i class="bi bi-lightning-charge text-warning"></i> Capacidades del Sistema
+        </h3>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="capability-card">
+                    <div class="capability-icon bg-primary bg-opacity-10 text-primary">
+                        <i class="bi bi-search"></i>
+                    </div>
+                    <h5 class="fw-bold text-center mb-3">Búsqueda Inteligente</h5>
+                    <ul class="small">
+                        <li>Búsqueda por tipo de cocina</li>
+                        <li>Filtrado por precio</li>
+                        <li>Búsqueda por servicios</li>
+                        <li>Recomendaciones personalizadas</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="capability-card">
+                    <div class="capability-icon bg-success bg-opacity-10 text-success">
+                        <i class="bi bi-calendar-event"></i>
+                    </div>
+                    <h5 class="fw-bold text-center mb-3">Gestión de Reservas</h5>
+                    <ul class="small">
+                        <li>Verificar disponibilidad</li>
+                        <li>Obtener estadísticas</li>
+                        <li>Información de reservas</li>
+                        <li>Horarios disponibles</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="capability-card">
+                    <div class="capability-icon bg-warning bg-opacity-10 text-warning">
+                        <i class="bi bi-book"></i>
+                    </div>
+                    <h5 class="fw-bold text-center mb-3">Menús y Platos</h5>
+                    <ul class="small">
+                        <li>Búsqueda de platos</li>
+                        <li>Menús completos</li>
+                        <li>Opciones vegetarianas/veganas</li>
+                        <li>Recomendaciones del chef</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Área de Pruebas -->
+    <div class="demo-section">
+        <h3 class="fw-bold mb-4">
+            <i class="bi bi-chat-dots text-info"></i> Prueba el Sistema
+        </h3>
+        
+        <!-- Input personalizado -->
+        <div class="mb-4">
+            <label class="form-label fw-bold">Escribe tu consulta:</label>
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" id="customQuery" 
+                       placeholder="Ej: Busca restaurantes peruanos económicos con delivery">
+                <button class="btn btn-primary" onclick="testCustomQuery()">
+                    <i class="bi bi-send-fill"></i> Enviar
+                </button>
+            </div>
+        </div>
+
+        <!-- Consultas de ejemplo -->
+        <div class="accordion" id="queryAccordion">
+            <!-- Búsquedas Básicas -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#basicQueries">
+                        <i class="bi bi-1-circle-fill text-primary me-2"></i>
+                        Búsquedas Básicas de Restaurantes
+                    </button>
+                </h2>
+                <div id="basicQueries" class="accordion-collapse collapse show" 
+                     data-bs-parent="#queryAccordion">
+                    <div class="accordion-body">
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="Busca restaurantes de comida italiana">
+                            <strong>🇮🇹 Búsqueda por tipo de cocina:</strong>
+                            <p class="mb-0 text-muted small">"Busca restaurantes de comida italiana"</p>
+                        </div>
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="Muéstrame restaurantes económicos">
+                            <strong>💰 Búsqueda por precio:</strong>
+                            <p class="mb-0 text-muted small">"Muéstrame restaurantes económicos"</p>
+                        </div>
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="Encuentra restaurantes con delivery y wifi gratis">
+                            <strong>🚚 Búsqueda por servicios:</strong>
+                            <p class="mb-0 text-muted small">"Encuentra restaurantes con delivery y wifi gratis"</p>
+                        </div>
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="¿Cuáles son los restaurantes mejor calificados?">
+                            <strong>⭐ Mejor calificados:</strong>
+                            <p class="mb-0 text-muted small">"¿Cuáles son los restaurantes mejor calificados?"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Búsquedas de Menú -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#menuQueries">
+                        <i class="bi bi-2-circle-fill text-success me-2"></i>
+                        Búsquedas de Menú y Platos
+                    </button>
+                </h2>
+                <div id="menuQueries" class="accordion-collapse collapse" 
+                     data-bs-parent="#queryAccordion">
+                    <div class="accordion-body">
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="Busca platos con camarones">
+                            <strong>🦐 Búsqueda de platos:</strong>
+                            <p class="mb-0 text-muted small">"Busca platos con camarones"</p>
+                        </div>
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="Dame el menú completo de La Trattoria">
+                            <strong>📋 Menú completo:</strong>
+                            <p class="mb-0 text-muted small">"Dame el menú completo de La Trattoria"</p>
+                        </div>
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="Quiero opciones vegetarianas">
+                            <strong>🥗 Platos vegetarianos:</strong>
+                            <p class="mb-0 text-muted small">"Quiero opciones vegetarianas"</p>
+                        </div>
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="¿Qué platos recomienda el chef?">
+                            <strong>👨‍🍳 Recomendaciones:</strong>
+                            <p class="mb-0 text-muted small">"¿Qué platos recomienda el chef?"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reservas -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#reservationQueries">
+                        <i class="bi bi-3-circle-fill text-warning me-2"></i>
+                        Consultas sobre Reservas
+                    </button>
+                </h2>
+                <div id="reservationQueries" class="accordion-collapse collapse" 
+                     data-bs-parent="#queryAccordion">
+                    <div class="accordion-body">
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="¿Cómo hago una reserva?">
+                            <strong>ℹ️ Información de reservas:</strong>
+                            <p class="mb-0 text-muted small">"¿Cómo hago una reserva?"</p>
+                        </div>
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="Verifica disponibilidad de Sushi Zen para el 2025-12-15">
+                            <strong>📅 Verificar disponibilidad:</strong>
+                            <p class="mb-0 text-muted small">"Verifica disponibilidad de Sushi Zen para el 2025-12-15"</p>
+                        </div>
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="Dame estadísticas de reservas de El Rincón Peruano">
+                            <strong>📊 Estadísticas:</strong>
+                            <p class="mb-0 text-muted small">"Dame estadísticas de reservas de El Rincón Peruano"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consultas Complejas -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#complexQueries">
+                        <i class="bi bi-4-circle-fill text-danger me-2"></i>
+                        Consultas Complejas (Multi-Plugin)
+                    </button>
+                </h2>
+                <div id="complexQueries" class="accordion-collapse collapse" 
+                     data-bs-parent="#queryAccordion">
+                    <div class="accordion-body">
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="Busca restaurantes japoneses con wifi y muéstrame su menú vegetariano">
+                            <strong>🎯 Multi-búsqueda:</strong>
+                            <p class="mb-0 text-muted small">"Busca restaurantes japoneses con wifi y muéstrame su menú vegetariano"</p>
+                        </div>
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="Necesito un restaurante económico con delivery que tenga ceviche">
+                            <strong>🔍 Búsqueda específica:</strong>
+                            <p class="mb-0 text-muted small">"Necesito un restaurante económico con delivery que tenga ceviche"</p>
+                        </div>
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="Dame los mejor calificados con opciones veganas y que acepten reservas">
+                            <strong>⭐ Filtrado múltiple:</strong>
+                            <p class="mb-0 text-muted small">"Dame los mejor calificados con opciones veganas y que acepten reservas"</p>
+                        </div>
+                        <div class="test-query" onclick="testQuery(this.dataset.query)" 
+                             data-query="Compara las pizzas de los restaurantes italianos y dime cuál recomiendas">
+                            <strong>🤔 Análisis y comparación:</strong>
+                            <p class="mb-0 text-muted small">"Compara las pizzas de los restaurantes italianos y dime cuál recomiendas"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Área de Respuesta -->
+    <div class="demo-section">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="fw-bold mb-0">
+                <i class="bi bi-chat-square-text text-success"></i> Respuesta del Sistema
+            </h3>
+            <button class="btn btn-outline-secondary btn-sm" onclick="clearResponse()">
+                <i class="bi bi-x-circle"></i> Limpiar
             </button>
-            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">
-                <i class="bi bi-house"></i> Inicio
-            </a>
         </div>
-    </div>
+        
+        <div id="responseArea" class="response-area">
+            <div class="text-center text-muted py-5">
+                <i class="bi bi-chat-dots display-1"></i>
+                <p class="mt-3">Las respuestas del sistema aparecerán aquí...</p>
+                <p class="small">Haz clic en cualquier consulta de ejemplo o escribe la tuya propia</p>
+            </div>
+        </div>
 
-    <!-- Tarjetas de Resumen -->
-    <div class="row g-4 mb-4">
-        <div class="col-md-3">
-            <div class="card text-white bg-primary shadow h-100">
+        <!-- Indicador de carga -->
+        <div id="loadingIndicator" class="d-none">
+            <div class="loading-spinner"></div>
+            <p class="text-center text-muted">Procesando con Semantic Kernel...</p>
+        </div>
+
+        <!-- Metadata de la respuesta -->
+        <div id="responseMetadata" class="mt-3 d-none">
+            <div class="card bg-light">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="text-uppercase mb-1">Restaurantes</h6>
-                            <h2 class="mb-0">@Model.TotalRestaurantes</h2>
+                    <h6 class="fw-bold mb-2">
+                        <i class="bi bi-info-circle"></i> Información de la Respuesta
+                    </h6>
+                    <div class="row small">
+                        <div class="col-md-6">
+                            <strong>Plugins Utilizados:</strong>
+                            <div id="pluginsUsed"></div>
                         </div>
-                        <i class="bi bi-shop display-4"></i>
-                    </div>
-                </div>
-                <div class="card-footer bg-primary bg-opacity-75">
-                    <small>@Model.RestaurantesDestacados destacados</small>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card text-white bg-success shadow h-100">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="text-uppercase mb-1">Productos</h6>
-                            <h2 class="mb-0">@Model.TotalProductos</h2>
-                        </div>
-                        <i class="bi bi-card-list display-4"></i>
-                    </div>
-                </div>
-                <div class="card-footer bg-success bg-opacity-75">
-                    <small>En menús activos</small>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card text-white bg-warning shadow h-100">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="text-uppercase mb-1">Reseñas</h6>
-                            <h2 class="mb-0">@Model.TotalResenas</h2>
-                        </div>
-                        <i class="bi bi-chat-quote display-4"></i>
-                    </div>
-                </div>
-                <div class="card-footer bg-warning bg-opacity-75">
-                    <small>Calificación promedio: @Model.PromedioCalificacion.ToString("F2") ⭐</small>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="card text-white bg-info shadow h-100">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="text-uppercase mb-1">Usuarios</h6>
-                            <h2 class="mb-0">@Model.TotalUsuarios</h2>
-                        </div>
-                        <i class="bi bi-people display-4"></i>
-                    </div>
-                </div>
-                <div class="card-footer bg-info bg-opacity-75">
-                    <small>@Model.UsuariosActivos activos (30 días)</small>
-                </div>
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
-            </div>
-        </div>
-    </div>
-
-<<<<<<< HEAD
-    <!-- Segunda Fila de Stats -->
-    <div class="row g-4 mb-4">
-        <div class="col-md-4">
-            <div class="stat-card text-center">
-                <div class="stat-icon bg-danger bg-opacity-10 text-danger mx-auto">
-                    <i class="bi bi-star-fill"></i>
-                </div>
-                <h2 class="fw-bold mb-1">@Model.RatingPromedio.ToString("0.00")</h2>
-                <p class="text-muted mb-0">Rating Promedio</p>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="stat-card text-center">
-                <div class="stat-icon bg-primary bg-opacity-10 text-primary mx-auto">
-                    <i class="bi bi-envelope-fill"></i>
-                </div>
-                <h2 class="fw-bold mb-1">@Model.TotalContactos</h2>
-                <p class="text-muted mb-0">Mensajes de Contacto</p>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="stat-card text-center">
-                <div class="stat-icon bg-success bg-opacity-10 text-success mx-auto">
-                    <i class="bi bi-lightbulb-fill"></i>
-                </div>
-                <h2 class="fw-bold mb-1">@Model.TotalSugerencias</h2>
-                <p class="text-muted mb-0">Sugerencias Recibidas</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Gráficos y Rankings -->
-    <div class="row g-4 mb-4">
-        <!-- Top Restaurantes por Rating -->
-        <div class="col-lg-6">
-            <div class="chart-card">
-                <h4 class="fw-bold mb-4">
-                    <i class="bi bi-trophy-fill text-warning"></i> 
-                    Top 5 Mejor Calificados
-                </h4>
-                @foreach (var rest in Model.RestaurantesMejorCalificados)
-                {
-                    <div class="restaurant-mini-card">
-                        <img src="@rest.ImagenUrl" alt="@rest.Nombre" class="restaurant-mini-img" />
-                        <div class="flex-grow-1">
-                            <h6 class="mb-1 fw-bold">@rest.Nombre</h6>
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="text-warning">
-                                    @for (int i = 0; i < (int)rest.Rating; i++)
-                                    {
-                                        <i class="bi bi-star-fill"></i>
-                                    }
-                                    <span class="text-dark ms-1">@rest.Rating.ToString("0.0")</span>
-                                </div>
-                                <small class="text-muted">@rest.TotalResenas reseñas</small>
-                            </div>
+                        <div class="col-md-6">
+                            <strong>Tiempo de Respuesta:</strong>
+                            <div id="responseTime"></div>
                         </div>
                     </div>
-                }
-            </div>
-        </div>
-
-        <!-- Top Restaurantes por Reseñas -->
-        <div class="col-lg-6">
-            <div class="chart-card">
-                <h4 class="fw-bold mb-4">
-                    <i class="bi bi-chat-left-quote-fill text-primary"></i> 
-                    Top 5 Más Reseñados
-                </h4>
-                @foreach (var rest in Model.RestaurantesMasResenados)
-                {
-                    <div class="restaurant-mini-card">
-                        <img src="@rest.ImagenUrl" alt="@rest.Nombre" class="restaurant-mini-img" />
-                        <div class="flex-grow-1">
-                            <h6 class="mb-1 fw-bold">@rest.Nombre</h6>
-                            <div class="d-flex align-items-center gap-3">
-                                <span class="badge bg-primary px-3 py-2">
-                                    @rest.TotalResenas reseñas
-                                </span>
-                                <small class="text-muted">⭐ @rest.Rating.ToString("0.0")</small>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
-
-    <!-- Tipos de Cocina Populares -->
-    <div class="row g-4 mb-4">
-        <div class="col-lg-6">
-            <div class="chart-card">
-                <h4 class="fw-bold mb-4">
-                    <i class="bi bi-egg-fried text-danger"></i> 
-                    Tipos de Cocina Más Populares
-                </h4>
-                @if (Model.TiposCocinaPopulares.Any())
-                {
-                    var maxCocina = Model.TiposCocinaPopulares.FirstOrDefault()?.Cantidad ?? 1;
-                    
-                    foreach (var tipo in Model.TiposCocinaPopulares)
-                    {
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="fw-bold">@tipo.Tipo</span>
-                                <span class="text-muted">@tipo.Cantidad restaurantes</span>
-                            </div>
-                            <div class="progress-modern">
-                                <div class="progress-bar-gradient" 
-                                     style="width: @((tipo.Cantidad * 100.0 / maxCocina))%">
-                                </div>
-                            </div>
-                        </div>
-                    }
-                }
-                else
-                {
-                    <div class="alert alert-info">
-                        <i class="bi bi-info-circle"></i> No hay datos de tipos de cocina disponibles.
-                    </div>
-                }
-            </div>
-        </div>
-
-        <!-- Distribución por Rango de Precios -->
-        <div class="col-lg-6">
-            <div class="chart-card">
-                <h4 class="fw-bold mb-4">
-                    <i class="bi bi-cash-stack text-success"></i> 
-                    Distribución por Rango de Precios
-                </h4>
-                @if (Model.RangoPreciosDistribucion.Any())
-                {
-                    var maxPrecio = Model.RangoPreciosDistribucion.Max(r => r.Cantidad);
-                    var colorClasses = new[] { "bg-success", "bg-info", "bg-warning", "bg-danger" };
-                    int colorIndex = 0;
-                    
-                    foreach (var rango in Model.RangoPreciosDistribucion)
-                    {
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between mb-1">
-                                <span class="fw-bold">@rango.Rango</span>
-                                <span class="text-muted">@rango.Cantidad restaurantes</span>
-                            </div>
-                            <div class="progress-modern">
-                                <div class="progress-bar @colorClasses[colorIndex++ % colorClasses.Length]" 
-                                     style="width: @((rango.Cantidad * 100.0 / maxPrecio))%">
-                                </div>
-                            </div>
-                        </div>
-                    }
-                }
-                else
-                {
-                    <div class="alert alert-info">
-                        <i class="bi bi-info-circle"></i> No hay datos de distribución de precios disponibles.
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
-
-    <!-- Productos Más Caros -->
-    <div class="row g-4 mb-4">
-        <div class="col-12">
-            <div class="chart-card">
-                <h4 class="fw-bold mb-4">
-                    <i class="bi bi-gem text-warning"></i> 
-                    Top 5 Productos Más Caros
-                </h4>
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th style="width: 80px;">Imagen</th>
-                                <th>Producto</th>
-                                <th>Restaurante</th>
-                                <th>Precio</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var producto in Model.ProductosMasCaros)
-                            {
-                                <tr>
-                                    <td>
-                                        @if (!string.IsNullOrEmpty(producto.ImagenUrl))
-                                        {
-                                            <img src="@producto.ImagenUrl" alt="@producto.Nombre" 
-                                                 class="rounded" style="width: 60px; height: 60px; object-fit: cover;" />
-                                        }
-                                        else
-                                        {
-                                            <div class="bg-light rounded d-flex align-items-center justify-content-center" 
-                                                 style="width: 60px; height: 60px;">
-                                                <i class="bi bi-image text-muted"></i>
-                                            </div>
-                                        }
-                                    </td>
-                                    <td><strong>@producto.Nombre</strong></td>
-                                    <td>@producto.Restaurante</td>
-                                    <td>
-                                        <h5 class="mb-0 text-success">S/ @producto.Precio.ToString("0.00")</h5>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Últimas Reseñas -->
-    <div class="row g-4">
-        <div class="col-12">
-            <div class="chart-card">
-                <h4 class="fw-bold mb-4">
-                    <i class="bi bi-clock-history text-info"></i> 
-                    Últimas Reseñas
-                </h4>
-                @foreach (var resena in Model.UltimasResenas)
-                {
-                    <div class="card border-0 bg-light mb-3">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                <h6 class="fw-bold mb-1">@resena.Titulo</h6>
-                                <div class="text-warning">
-                                    @for (int i = 0; i < (int)resena.Calificacion; i++)
-                                    {
-                                        <i class="bi bi-star-fill"></i>
-                                    }
-                                </div>
-                            </div>
-                            <p class="text-muted small mb-2">@resena.Comentario</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="badge bg-primary">@resena.RestauranteNombre</span>
-                                <small class="text-muted">@resena.Fecha.ToString("dd/MM/yyyy HH:mm")</small>
-                            </div>
-                        </div>
-                    </div>
-                }
+    <!-- Información Técnica -->
+    <div class="demo-section">
+        <h3 class="fw-bold mb-4">
+            <i class="bi bi-gear text-secondary"></i> Información Técnica
+        </h3>
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="fw-bold">Tecnologías Utilizadas:</h5>
+                <ul>
+                    <li><strong>Semantic Kernel</strong> - Framework de orquestación de IA</li>
+                    <li><strong>Claude Sonnet 4</strong> - Modelo de lenguaje avanzado</li>
+                    <li><strong>Function Calling</strong> - Llamadas automáticas a funciones</li>
+                    <li><strong>Plugins Personalizados</strong> - Acceso a datos en tiempo real</li>
+                </ul>
             </div>
-        </div>
-    </div>
-
-    <!-- Satisfacción de Contactos -->
-    @if (Model.ContactosPorSatisfaccion.Any())
-    {
-        <div class="row g-4 mt-2">
-            <div class="col-12">
-                <div class="chart-card">
-                    <h4 class="fw-bold mb-4">
-                        <i class="bi bi-emoji-smile text-success"></i> 
-                        Satisfacción de Usuarios (Contactos)
-                    </h4>
-                    <div class="row g-3">
-                        @foreach (var sat in Model.ContactosPorSatisfaccion.OrderByDescending(s => s.Nivel))
-                        {
-                            var satisfaccionNum = int.TryParse(sat.Nivel, out int num) ? num : 0;
-                            var colorClass = satisfaccionNum >= 8 ? "success" : 
-                                           satisfaccionNum >= 6 ? "warning" : "danger";
-                            
-                            <div class="col-md-2 col-6">
-                                <div class="card text-center border-0 bg-@colorClass bg-opacity-10">
-                                    <div class="card-body">
-                                        <h2 class="fw-bold text-@colorClass mb-0">@sat.Nivel</h2>
-                                        <small class="text-muted">@sat.Cantidad votos</small>
-                                    </div>
-=======
-    <div class="row g-4 mb-4">
-        <!-- Gráfico de Reseñas por Mes -->
-        <div class="col-lg-8">
-            <div class="card shadow-sm">
-                <div class="card-header bg-light">
-                    <h5 class="mb-0"><i class="bi bi-bar-chart"></i> Reseñas por Mes</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="resenasPorMesChart" height="100"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- Restaurantes Mejor Calificados -->
-        <div class="col-lg-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-header bg-light">
-                    <h5 class="mb-0"><i class="bi bi-trophy"></i> Top 5 Restaurantes</h5>
-                </div>
-                <div class="card-body">
-                    <div class="list-group list-group-flush">
-                        @foreach (var rest in Model.RestaurantesMejorCalificados)
-                        {
-                            <div class="list-group-item px-0">
-                                <div class="d-flex justify-content-between align-items-start">
-                                    <div>
-                                        <h6 class="mb-1">@rest.Nombre</h6>
-                                        <small class="text-muted">@rest.TotalResenas reseñas</small>
-                                    </div>
-                                    <span class="badge bg-warning text-dark">
-                                        @rest.Rating.ToString("F2") ⭐
-                                    </span>
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-<<<<<<< HEAD
-    }
-</div>
-=======
-    </div>
-
-    <div class="row g-4 mb-4">
-        <!-- Productos por Categoría -->
-        <div class="col-lg-6">
-            <div class="card shadow-sm">
-                <div class="card-header bg-light">
-                    <h5 class="mb-0"><i class="bi bi-pie-chart"></i> Productos por Categoría</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="productosPorCategoriaChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- Restaurantes por Tipo de Cocina -->
-        <div class="col-lg-6">
-            <div class="card shadow-sm">
-                <div class="card-header bg-light">
-                    <h5 class="mb-0"><i class="bi bi-pie-chart-fill"></i> Restaurantes por Tipo de Cocina</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="restaurantesPorTipoChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Últimas Reseñas -->
-    <div class="row g-4 mb-4">
-        <div class="col-12">
-            <div class="card shadow-sm">
-                <div class="card-header bg-light">
-                    <h5 class="mb-0"><i class="bi bi-clock-history"></i> Últimas Reseñas</h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Restaurante</th>
-                                    <th>Título</th>
-                                    <th>Calificación</th>
-                                    <th>Fecha</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var resena in Model.UltimasResenas)
-                                {
-                                    <tr>
-                                        <td>@resena.Restaurante.Nombre</td>
-                                        <td>@resena.Titulo</td>
-                                        <td>
-                                            <span class="badge bg-warning text-dark">
-                                                @resena.Calificacion.ToString("F1") ⭐
-                                            </span>
-                                        </td>
-                                        <td>@resena.FechaCreacion.ToString("dd/MM/yyyy")</td>
-                                        <td>
-                                            <a asp-controller="Restaurantes" asp-action="Details" 
-                                               asp-route-id="@resena.RestauranteId" class="btn btn-sm btn-primary">
-                                                Ver
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Estadísticas Adicionales -->
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <i class="bi bi-inbox display-4 text-muted"></i>
-                    <h3 class="mt-3">@Model.RestaurantesSinResenas</h3>
-                    <p class="text-muted">Restaurantes sin reseñas</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <i class="bi bi-envelope display-4 text-primary"></i>
-                    <h3 class="mt-3">@Model.TotalContactos</h3>
-                    <p class="text-muted">Mensajes de contacto</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <i class="bi bi-lightbulb display-4 text-warning"></i>
-                    <h3 class="mt-3">@Model.TotalSugerencias</h3>
-                    <p class="text-muted">Sugerencias recibidas</p>
-                </div>
+            <div class="col-md-6">
+                <h5 class="fw-bold">Capacidades Principales:</h5>
+                <ul>
+                    <li>Comprensión de lenguaje natural</li>
+                    <li>Acceso a datos en tiempo real de la BD</li>
+                    <li>Orquestación automática de múltiples funciones</li>
+                    <li>Respuestas contextualizadas y precisas</li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Gráfico de Reseñas por Mes
-        const resenasPorMesData = @Html.Raw(Json.Serialize(Model.ResenasPorMes));
-        const ctx1 = document.getElementById('resenasPorMesChart').getContext('2d');
-        new Chart(ctx1, {
-            type: 'line',
-            data: {
-                labels: resenasPorMesData.map(item => item.mes),
-                datasets: [{
-                    label: 'Número de Reseñas',
-                    data: resenasPorMesData.map(item => item.total),
-                    borderColor: 'rgb(75, 192, 192)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
+        let startTime;
+
+        async function testQuery(query) {
+            const responseArea = document.getElementById('responseArea');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const responseMetadata = document.getElementById('responseMetadata');
+
+            // Mostrar loading
+            responseArea.innerHTML = '';
+            loadingIndicator.classList.remove('d-none');
+            responseMetadata.classList.add('d-none');
+
+            startTime = Date.now();
+
+            try {
+                const response = await fetch('/api/chat/message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
                     },
-                    title: {
-                        display: false
-                    }
-                }
-            }
-        });
+                    body: JSON.stringify({
+                        message: query,
+                        conversationHistory: null
+                    })
+                });
 
-        // Gráfico de Productos por Categoría
-        const productosPorCategoriaData = @Html.Raw(Json.Serialize(Model.ProductosPorCategoria));
-        const ctx2 = document.getElementById('productosPorCategoriaChart').getContext('2d');
-        new Chart(ctx2, {
-            type: 'doughnut',
-            data: {
-                labels: productosPorCategoriaData.map(item => item.categoria),
-                datasets: [{
-                    data: productosPorCategoriaData.map(item => item.total),
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)',
-                        'rgb(153, 102, 255)',
-                        'rgb(255, 159, 64)'
-                    ]
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'right',
-                    }
-                }
-            }
-        });
+                const data = await response.json();
+                const endTime = Date.now();
+                const duration = endTime - startTime;
 
-        // Gráfico de Restaurantes por Tipo
-        const restaurantesPorTipoData = @Html.Raw(Json.Serialize(Model.RestaurantesPorTipoCocina));
-        const ctx3 = document.getElementById('restaurantesPorTipoChart').getContext('2d');
-        new Chart(ctx3, {
-            type: 'pie',
-            data: {
-                labels: restaurantesPorTipoData.map(item => item.tipoCocina),
-                datasets: [{
-                    data: restaurantesPorTipoData.map(item => item.total),
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)',
-                        'rgb(153, 102, 255)',
-                        'rgb(255, 159, 64)',
-                        'rgb(201, 203, 207)'
-                    ]
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'right',
-                    }
+                // Ocultar loading
+                loadingIndicator.classList.add('d-none');
+
+                if (response.ok) {
+                    // Mostrar respuesta
+                    responseArea.innerHTML = `
+                        <div class="alert alert-info mb-3">
+                            <strong><i class="bi bi-question-circle"></i> Consulta:</strong><br>
+                            ${escapeHtml(query)}
+                        </div>
+                        <div class="alert alert-success">
+                            <strong><i class="bi bi-robot"></i> Respuesta:</strong><br>
+                            ${escapeHtml(data.response)}
+                        </div>
+                    `;
+
+                    // Mostrar metadata
+                    responseMetadata.classList.remove('d-none');
+                    document.getElementById('responseTime').textContent = duration + ' ms';
+                    document.getElementById('pluginsUsed').innerHTML = 
+                        '<span class="badge bg-primary me-1">RestaurantPlugin</span>' +
+                        '<span class="badge bg-success me-1">ReservationPlugin</span>' +
+                        '<span class="badge bg-warning text-dark">MenuPlugin</span>';
+                } else {
+                    responseArea.innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <strong>Error:</strong> ${data.error || 'Error desconocido'}
+                        </div>
+                    `;
                 }
+
+                // Scroll to response
+                responseArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } catch (error) {
+                loadingIndicator.classList.add('d-none');
+                responseArea.innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="bi bi-x-circle"></i>
+                        <strong>Error de conexión:</strong> No se pudo conectar con el servidor.
+                        <br>
+                        <small>${error.message}</small>
+                    </div>
+                `;
+            }
+        }
+
+        async function testCustomQuery() {
+            const input = document.getElementById('customQuery');
+            const query = input.value.trim();
+
+            if (!query) {
+                alert('Por favor, escribe una consulta');
+                return;
+            }
+
+            await testQuery(query);
+            input.value = '';
+        }
+
+        function clearResponse() {
+            document.getElementById('responseArea').innerHTML = `
+                <div class="text-center text-muted py-5">
+                    <i class="bi bi-chat-dots display-1"></i>
+                    <p class="mt-3">Las respuestas del sistema aparecerán aquí...</p>
+                    <p class="small">Haz clic en cualquier consulta de ejemplo o escribe la tuya propia</p>
+                </div>
+            `;
+            document.getElementById('responseMetadata').classList.add('d-none');
+        }
+
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Permitir enviar con Enter
+        document.getElementById('customQuery').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                testCustomQuery();
             }
         });
     </script>
 }
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7

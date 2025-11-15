@@ -9,10 +9,7 @@ namespace DondeComemos.Services
         Task SendWelcomeEmailAsync(string to, string userName);
         Task SendReviewNotificationAsync(string to, string userName, string restaurantName);
         Task SendPasswordResetEmailAsync(string to, string resetLink);
-<<<<<<< HEAD
         Task SendReservationConfirmationAsync(string to, string userName, string restaurantName, DateTime fechaHora, string codigoReserva);
-=======
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
     }
 
     public class EmailService : IEmailService
@@ -103,26 +100,15 @@ namespace DondeComemos.Services
 
         public async Task SendReviewNotificationAsync(string to, string userName, string restaurantName)
         {
-<<<<<<< HEAD
             var subject = $"Nueva reseña publicada";
-=======
-            var subject = $"Nueva reseña en {restaurantName}";
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
             var body = $@"
                 <html>
                 <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>
                     <div style='max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;'>
-<<<<<<< HEAD
                         <h2 style='color: #0d6efd;'>¡Tu reseña ha sido publicada!</h2>
                         <p>Hola <strong>{userName}</strong>,</p>
                         <p>Tu reseña sobre <strong>{restaurantName}</strong> ha sido publicada exitosamente.</p>
                         <p>¡Gracias por compartir tu experiencia con la comunidad!</p>
-=======
-                        <h2 style='color: #0d6efd;'>Nueva Reseña Publicada</h2>
-                        <p>Hola <strong>{userName}</strong>,</p>
-                        <p>Se ha publicado una nueva reseña en <strong>{restaurantName}</strong>.</p>
-                        <p>¡No olvides revisar las opiniones de otros comensales!</p>
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
                         <div style='text-align: center; margin: 30px 0;'>
                             <a href='https://localhost:7230/Restaurantes/Search' style='background-color: #28a745; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;'>
                                 Ver Restaurantes
@@ -164,7 +150,6 @@ namespace DondeComemos.Services
 
             await SendEmailAsync(to, subject, body);
         }
-<<<<<<< HEAD
         public async Task SendReservationConfirmationAsync(string to, string userName, string restaurantName, DateTime fechaHora, string codigoReserva)
         {
             var subject = $"Confirmación de Reserva - {restaurantName}";
@@ -205,7 +190,4 @@ namespace DondeComemos.Services
         }
     }
     
-=======
-    }
->>>>>>> f90b87d81de3ce8c6b022ece9f01afa7f99a0eb7
 }
